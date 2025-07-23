@@ -114,12 +114,6 @@ export default function TacticalDashboard() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary-500">
-              <Bell className="w-4 h-4" />
-            </Button>
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary-500">
-              <RefreshCw className="w-4 h-4" />
-            </Button>
             <ThemeToggle />
           </div>
         </div>

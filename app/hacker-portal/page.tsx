@@ -51,7 +51,7 @@ interface HackerPortalPageProps {
 }
 
 export default function HackerPortalPage({ monacoTheme }: HackerPortalPageProps) {
-  const { theme } = useTheme()
+  const { theme, setTheme } = useTheme()
   const { toast } = useToast()
   const [mounted, setMounted] = useState(false)
   
@@ -199,10 +199,13 @@ export default function HackerPortalPage({ monacoTheme }: HackerPortalPageProps)
     // Clear all theme color caches
     themeApplication.resetToDefaults()
     
+    // Reset color mode to default (dark)
+    setTheme('dark')
+    
     // Show success toast
     toast({
       title: "Themes Reset",
-      description: "Monaco themes have been reset to Visual Studio defaults.",
+      description: "Monaco themes and color mode have been reset to defaults.",
     })
     
     // Force a re-render by resetting Monaco instance
@@ -210,7 +213,7 @@ export default function HackerPortalPage({ monacoTheme }: HackerPortalPageProps)
       const themeToApply = theme === 'dark' ? defaultDark : defaultLight
       monacoInstance.editor.setTheme(themeToApply)
     }
-  }, [monacoTheme, theme, monacoInstance, toast])
+  }, [monacoTheme, theme, setTheme, monacoInstance, toast])
 
   // Handle code change
   const handleCodeChange = (value: string | undefined) => {

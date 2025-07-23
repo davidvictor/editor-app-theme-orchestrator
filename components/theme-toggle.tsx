@@ -1,10 +1,9 @@
 "use client"
 
 import * as React from "react"
-import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
-import { Button } from "@/components/ui/button"
+import { Switch } from "@/components/ui/switch"
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme()
@@ -19,15 +18,14 @@ export function ThemeToggle() {
   }
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="text-muted-foreground hover:text-primary-500"
-    >
-      <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-      <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-      <span className="sr-only">Toggle theme</span>
-    </Button>
+    <div className="flex items-center gap-2">
+      <span className="text-sm text-muted-foreground">Light</span>
+      <Switch
+        checked={theme === "dark"}
+        onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
+        className="data-[state=checked]:bg-primary-500"
+      />
+      <span className="text-sm text-muted-foreground">Dark</span>
+    </div>
   )
 }
