@@ -1,95 +1,95 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Search, Filter, MoreHorizontal, MapPin, Clock, Shield } from "lucide-react"
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Search, Filter, MoreHorizontal, MapPin, Clock, Shield } from 'lucide-react';
 
 export default function AgentNetworkPage() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedAgent, setSelectedAgent] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedAgent, setSelectedAgent] = useState(null);
 
   const agents = [
     {
-      id: "G-078W",
-      name: "VENGEFUL SPIRIT",
-      status: "active",
-      location: "Berlin",
-      lastSeen: "2 min ago",
+      id: 'G-078W',
+      name: 'VENGEFUL SPIRIT',
+      status: 'active',
+      location: 'Berlin',
+      lastSeen: '2 min ago',
       missions: 47,
-      risk: "high",
+      risk: 'high',
     },
     {
-      id: "G-079X",
-      name: "OBSIDIAN SENTINEL",
-      status: "standby",
-      location: "Tokyo",
-      lastSeen: "15 min ago",
+      id: 'G-079X',
+      name: 'OBSIDIAN SENTINEL',
+      status: 'standby',
+      location: 'Tokyo',
+      lastSeen: '15 min ago',
       missions: 32,
-      risk: "medium",
+      risk: 'medium',
     },
     {
-      id: "G-080Y",
-      name: "GHOSTLY FURY",
-      status: "active",
-      location: "Cairo",
-      lastSeen: "1 min ago",
+      id: 'G-080Y',
+      name: 'GHOSTLY FURY',
+      status: 'active',
+      location: 'Cairo',
+      lastSeen: '1 min ago',
       missions: 63,
-      risk: "high",
+      risk: 'high',
     },
     {
-      id: "G-081Z",
-      name: "CURSED REVENANT",
-      status: "compromised",
-      location: "Moscow",
-      lastSeen: "3 hours ago",
+      id: 'G-081Z',
+      name: 'CURSED REVENANT',
+      status: 'compromised',
+      location: 'Moscow',
+      lastSeen: '3 hours ago',
       missions: 28,
-      risk: "critical",
+      risk: 'critical',
     },
     {
-      id: "G-082A",
-      name: "VENOMOUS SHADE",
-      status: "active",
-      location: "London",
-      lastSeen: "5 min ago",
+      id: 'G-082A',
+      name: 'VENOMOUS SHADE',
+      status: 'active',
+      location: 'London',
+      lastSeen: '5 min ago',
       missions: 41,
-      risk: "medium",
+      risk: 'medium',
     },
     {
-      id: "G-083B",
-      name: "MYSTIC ENIGMA",
-      status: "training",
-      location: "Base Alpha",
-      lastSeen: "1 day ago",
+      id: 'G-083B',
+      name: 'MYSTIC ENIGMA',
+      status: 'training',
+      location: 'Base Alpha',
+      lastSeen: '1 day ago',
       missions: 12,
-      risk: "low",
+      risk: 'low',
     },
     {
-      id: "G-084C",
-      name: "WRAITH AVENGER",
-      status: "active",
-      location: "Paris",
-      lastSeen: "8 min ago",
+      id: 'G-084C',
+      name: 'WRAITH AVENGER',
+      status: 'active',
+      location: 'Paris',
+      lastSeen: '8 min ago',
       missions: 55,
-      risk: "high",
+      risk: 'high',
     },
     {
-      id: "G-085D",
-      name: "SPECTRAL FURY",
-      status: "standby",
-      location: "Sydney",
-      lastSeen: "22 min ago",
+      id: 'G-085D',
+      name: 'SPECTRAL FURY',
+      status: 'standby',
+      location: 'Sydney',
+      lastSeen: '22 min ago',
       missions: 38,
-      risk: "medium",
+      risk: 'medium',
     },
-  ]
+  ];
 
   const filteredAgents = agents.filter(
     (agent) =>
       agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      agent.id.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+      agent.id.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="p-6 space-y-6">
@@ -164,21 +164,39 @@ export default function AgentNetworkPage() {
       {/* Agent List */}
       <Card className="bg-card border-border">
         <CardHeader>
-          <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">AGENT ROSTER</CardTitle>
+          <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">
+            AGENT ROSTER
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">AGENT ID</th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">CODENAME</th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">STATUS</th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">LOCATION</th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">LAST SEEN</th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">MISSIONS</th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">RISK</th>
-                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">ACTIONS</th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">
+                    AGENT ID
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">
+                    CODENAME
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">
+                    STATUS
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">
+                    LOCATION
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">
+                    LAST SEEN
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">
+                    MISSIONS
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">
+                    RISK
+                  </th>
+                  <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">
+                    ACTIONS
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -186,7 +204,7 @@ export default function AgentNetworkPage() {
                   <tr
                     key={agent.id}
                     className={`border-b border-border hover:bg-muted transition-colors cursor-pointer ${
-                      index % 2 === 0 ? "bg-card" : "bg-card"
+                      index % 2 === 0 ? 'bg-card' : 'bg-card'
                     }`}
                     onClick={() => setSelectedAgent(agent)}
                   >
@@ -196,16 +214,18 @@ export default function AgentNetworkPage() {
                       <div className="flex items-center gap-2">
                         <div
                           className={`w-2 h-2 rounded-full ${
-                            agent.status === "active"
-                              ? "bg-status-success"
-                              : agent.status === "standby"
-                              ? "bg-status-warning"
-                              : agent.status === "training"
-                              ? "bg-status-info"
-                              : "bg-status-error"
+                            agent.status === 'active'
+                              ? 'bg-status-success'
+                              : agent.status === 'standby'
+                                ? 'bg-status-warning'
+                                : agent.status === 'training'
+                                  ? 'bg-status-info'
+                                  : 'bg-status-error'
                           }`}
                         ></div>
-                        <span className="text-xs text-muted-foreground uppercase tracking-wider">{agent.status}</span>
+                        <span className="text-xs text-muted-foreground uppercase tracking-wider">
+                          {agent.status}
+                        </span>
                       </div>
                     </td>
                     <td className="py-3 px-4">
@@ -217,27 +237,35 @@ export default function AgentNetworkPage() {
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
                         <Clock className="w-3 h-3 text-muted-foreground" />
-                        <span className="text-sm text-muted-foreground font-mono">{agent.lastSeen}</span>
+                        <span className="text-sm text-muted-foreground font-mono">
+                          {agent.lastSeen}
+                        </span>
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-sm text-foreground font-mono">{agent.missions}</td>
+                    <td className="py-3 px-4 text-sm text-foreground font-mono">
+                      {agent.missions}
+                    </td>
                     <td className="py-3 px-4">
                       <span
                         className={`text-xs px-2 py-1 rounded uppercase tracking-wider ${
-                          agent.risk === "critical"
-                            ? "bg-status-error/20 text-status-error"
-                            : agent.risk === "high"
-                            ? "bg-status-warning/20 text-status-warning"
-                            : agent.risk === "medium"
-                            ? "bg-status-neutral/20 text-status-neutral"
-                            : "bg-status-success/20 text-status-success"
+                          agent.risk === 'critical'
+                            ? 'bg-status-error/20 text-status-error'
+                            : agent.risk === 'high'
+                              ? 'bg-status-warning/20 text-status-warning'
+                              : agent.risk === 'medium'
+                                ? 'bg-status-neutral/20 text-status-neutral'
+                                : 'bg-status-success/20 text-status-success'
                         }`}
                       >
                         {agent.risk}
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary-500">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-muted-foreground hover:text-primary-500"
+                      >
                         <MoreHorizontal className="w-4 h-4" />
                       </Button>
                     </td>
@@ -255,7 +283,9 @@ export default function AgentNetworkPage() {
           <Card className="bg-card border-border w-full max-w-2xl">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle className="text-lg font-bold text-foreground tracking-wider">{selectedAgent.name}</CardTitle>
+                <CardTitle className="text-lg font-bold text-foreground tracking-wider">
+                  {selectedAgent.name}
+                </CardTitle>
                 <p className="text-sm text-muted-foreground font-mono">{selectedAgent.id}</p>
               </div>
               <Button
@@ -273,16 +303,18 @@ export default function AgentNetworkPage() {
                   <div className="flex items-center gap-2">
                     <div
                       className={`w-2 h-2 rounded-full ${
-                        selectedAgent.status === "active"
-                          ? "bg-status-success"
-                          : selectedAgent.status === "standby"
-                          ? "bg-status-warning"
-                          : selectedAgent.status === "training"
-                          ? "bg-status-info"
-                          : "bg-status-error"
+                        selectedAgent.status === 'active'
+                          ? 'bg-status-success'
+                          : selectedAgent.status === 'standby'
+                            ? 'bg-status-warning'
+                            : selectedAgent.status === 'training'
+                              ? 'bg-status-info'
+                              : 'bg-status-error'
                       }`}
                     ></div>
-                    <span className="text-sm text-foreground uppercase tracking-wider">{selectedAgent.status}</span>
+                    <span className="text-sm text-foreground uppercase tracking-wider">
+                      {selectedAgent.status}
+                    </span>
                   </div>
                 </div>
                 <div>
@@ -290,20 +322,22 @@ export default function AgentNetworkPage() {
                   <p className="text-sm text-foreground">{selectedAgent.location}</p>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground tracking-wider mb-1">MISSIONS COMPLETED</p>
+                  <p className="text-xs text-muted-foreground tracking-wider mb-1">
+                    MISSIONS COMPLETED
+                  </p>
                   <p className="text-sm text-foreground font-mono">{selectedAgent.missions}</p>
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground tracking-wider mb-1">RISK LEVEL</p>
                   <span
                     className={`text-xs px-2 py-1 rounded uppercase tracking-wider ${
-                      selectedAgent.risk === "critical"
-                        ? "bg-status-error/20 text-status-error"
-                        : selectedAgent.risk === "high"
-                        ? "bg-status-warning/20 text-status-warning"
-                        : selectedAgent.risk === "medium"
-                        ? "bg-status-neutral/20 text-status-neutral"
-                        : "bg-status-success/20 text-status-success"
+                      selectedAgent.risk === 'critical'
+                        ? 'bg-status-error/20 text-status-error'
+                        : selectedAgent.risk === 'high'
+                          ? 'bg-status-warning/20 text-status-warning'
+                          : selectedAgent.risk === 'medium'
+                            ? 'bg-status-neutral/20 text-status-neutral'
+                            : 'bg-status-success/20 text-status-success'
                     }`}
                   >
                     {selectedAgent.risk}
@@ -312,7 +346,9 @@ export default function AgentNetworkPage() {
               </div>
 
               <div className="flex gap-2 pt-4">
-                <Button className="bg-primary-500 hover:bg-primary-600 text-white">Assign Mission</Button>
+                <Button className="bg-primary-500 hover:bg-primary-600 text-white">
+                  Assign Mission
+                </Button>
                 <Button
                   variant="outline"
                   className="border-border text-muted-foreground hover:bg-muted hover:text-muted-foreground bg-transparent"
@@ -331,5 +367,5 @@ export default function AgentNetworkPage() {
         </div>
       )}
     </div>
-  )
+  );
 }

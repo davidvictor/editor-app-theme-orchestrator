@@ -1,27 +1,23 @@
 // Hacker Portal Configuration Constants
-import { getAllThemeNames } from './monaco-themes-registry'
+import { getAllThemeNames } from './monaco-themes-registry';
 
 export const STORAGE_KEYS = {
   LIGHT_THEME: 'hacker-portal-light-theme',
   DARK_THEME: 'hacker-portal-dark-theme',
   CONFIG: 'hacker-portal-config',
-  CODE: 'hacker-portal-code'
-}
+  CODE: 'hacker-portal-code',
+};
 
-export const BUILT_IN_THEMES = [
-  'vs', 'vs-dark', 'hc-black', 'hc-light'
-]
+export const BUILT_IN_THEMES = ['vs', 'vs-dark', 'hc-black', 'hc-light'];
 
 // Default themes that should use the app's CSS instead of extracted colors
 // These themes will not have their colors extracted - the app will use default CSS
-export const DEFAULT_THEMES_USE_APP_CSS = [
-  'vs', 'vs-dark', 'hc-black', 'hc-light'
-]
+export const DEFAULT_THEMES_USE_APP_CSS = ['vs', 'vs-dark', 'hc-black', 'hc-light'];
 
 // Get all Monaco themes excluding built-ins
-export const MONACO_THEMES = getAllThemeNames().filter(theme => 
-  !['vs', 'vs-dark', 'hc-black', 'hc-light'].includes(theme)
-)
+export const MONACO_THEMES = getAllThemeNames().filter(
+  (theme) => !['vs', 'vs-dark', 'hc-black', 'hc-light'].includes(theme)
+);
 
 export const DEFAULT_CONFIG = {
   fontSize: 14,
@@ -40,8 +36,8 @@ export const DEFAULT_CONFIG = {
   tabSize: 2,
   insertSpaces: true,
   formatOnPaste: true,
-  formatOnType: true
-}
+  formatOnType: true,
+};
 
 export const JAVASCRIPT_TEMPLATE = `// === MONACO HACKER PORTAL v2.0 ===
 // System: ACTIVE | Security: ENABLED | Mode: STEALTH

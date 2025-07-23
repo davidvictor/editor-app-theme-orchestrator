@@ -15,6 +15,7 @@ The theme system works by dynamically setting CSS custom properties on the HTML 
 3. **Direct Property Setting**: Using `element.style.setProperty()` creates inline styles that take precedence
 
 Example:
+
 ```css
 /* In globals.css */
 :root {
@@ -40,6 +41,7 @@ Example:
 This script runs during development to analyze all Monaco themes and categorize them by brightness.
 
 **How it works:**
+
 1. Loads all theme files from `node_modules/monaco-themes/themes/`
 2. Extracts the background color from each theme's data structure
 3. Converts the color to HSL (Hue, Saturation, Lightness)
@@ -47,25 +49,28 @@ This script runs during development to analyze all Monaco themes and categorize 
 5. Generates `lib/theme-brightness-registry.ts` with categorization data
 
 **Background Color Extraction Methods:**
+
 ```javascript
 // Method 1: Standard format (colors object)
-themeData.colors['editor.background']
+themeData.colors['editor.background'];
 
 // Method 2: Rules array format (common in imported themes)
-themeData.rules.find(r => r.token === '').background
+themeData.rules.find((r) => r.token === '').background;
 
 // Method 3: Fallback based on theme base
-themeData.base === 'vs-dark' ? '#1e1e1e' : '#ffffff'
+themeData.base === 'vs-dark' ? '#1e1e1e' : '#ffffff';
 ```
 
 ### 2. Theme Brightness Registry (`lib/theme-brightness-registry.ts`)
 
 Auto-generated file containing:
+
 - Categorized light and dark themes
 - Theme metadata (background color, lightness value)
 - Helper functions for theme queries
 
 **Key Functions:**
+
 - `getAllLightThemes()`: Returns all light theme names
 - `getAllDarkThemes()`: Returns all dark theme names
 - `isLightTheme(name)`: Checks if a theme is light
@@ -76,16 +81,18 @@ Auto-generated file containing:
 React hook managing theme state without circular dependencies.
 
 **Features:**
+
 - Uses `useMemo` instead of `useEffect` for derived state
 - Manages light/dark theme selections
 - Persists selections to localStorage
 - Provides clean API for theme updates
 
 **State Management:**
+
 ```typescript
 const currentTheme = useMemo(() => {
-  return theme === 'dark' ? darkTheme : lightTheme
-}, [theme, darkTheme, lightTheme])
+  return theme === 'dark' ? darkTheme : lightTheme;
+}, [theme, darkTheme, lightTheme]);
 ```
 
 ### 4. Theme Application Manager (`lib/theme-application.ts`)
@@ -93,12 +100,14 @@ const currentTheme = useMemo(() => {
 Singleton service handling theme application logic.
 
 **Key Responsibilities:**
+
 1. **Default Theme Detection**: Identifies VS Code default themes
 2. **Color Extraction**: Extracts colors from Monaco themes
 3. **Color Application**: Applies colors to CSS variables
 4. **Reset Functionality**: Clears custom colors for default themes
 
 **Default Themes (Use App CSS):**
+
 - Visual Studio (`vs`)
 - Visual Studio Dark (`vs-dark`)
 - High Contrast Light (`hc-light`)
@@ -109,6 +118,7 @@ Singleton service handling theme application logic.
 Core utilities for color extraction and application.
 
 **Color Extraction Process:**
+
 1. Access Monaco's internal theme service
 2. Extract ~50 different color values
 3. Convert colors to HSL format
@@ -116,6 +126,7 @@ Core utilities for color extraction and application.
 5. Apply to CSS custom properties
 
 **Extracted Colors Include:**
+
 - Editor colors (background, foreground)
 - UI colors (sidebar, panels, tabs)
 - Interactive states (hover, active, selected)
@@ -126,6 +137,7 @@ Core utilities for color extraction and application.
 Reusable UI component for theme selection.
 
 **Features:**
+
 - Separate dropdowns for light and dark themes
 - Filtered theme lists based on brightness
 - Clean component API for integration
@@ -135,6 +147,7 @@ Reusable UI component for theme selection.
 Defines default theme variables for light and dark modes.
 
 **Structure:**
+
 ```css
 :root {
   /* Light mode defaults */
@@ -154,20 +167,22 @@ Defines default theme variables for light and dark modes.
 ## Theme Application Flow
 
 ### 1. Initial Page Load
+
 ```
 User loads app → Check localStorage for saved themes
   ↓
 If default themes (vs, vs-dark, etc.)
   → Use app's default CSS variables
-  
+
 If custom themes with saved colors
   → Apply saved Monaco colors
-  
+
 If custom themes without saved colors
   → Use app's default CSS variables
 ```
 
 ### 2. Theme Toggle (Switch in Header)
+
 ```
 User clicks theme toggle → Theme changes (light ↔ dark)
   ↓
@@ -178,6 +193,7 @@ If custom theme → Apply saved colors if available
 ```
 
 ### 3. Monaco Theme Selection (In Hacker Portal)
+
 ```
 User selects new theme → Update theme preference
   ↓
@@ -197,31 +213,33 @@ Save colors to localStorage
 The system extracts colors from Monaco theme data structures and maps them to CSS variables:
 
 #### 1. **Theme Data Extraction Sources** (in order of priority):
+
 ```javascript
 // Method 1: Standard Monaco theme format with colors object
-themeData.colors['editor.background']
-themeData.colors['editor.foreground']
+themeData.colors['editor.background'];
+themeData.colors['editor.foreground'];
 
 // Method 2: Custom theme format with rules array
-themeData.rules.find(r => r.token === '').background  // Background from base rule
-themeData.rules.find(r => r.token === 'source').foreground  // Foreground from text tokens
+themeData.rules.find((r) => r.token === '').background; // Background from base rule
+themeData.rules.find((r) => r.token === 'source').foreground; // Foreground from text tokens
 
 // Method 3: Monaco's internal theme service
-monacoInstance._themeService._theme.getColor('editor.background')
+monacoInstance._themeService._theme.getColor('editor.background');
 ```
 
 #### 2. **Color Mapping Table**:
-| Monaco Theme Color | CSS Variable | Usage |
-|-------------------|--------------|-------|
-| `editor.background` | `--background` | Main app background |
-| `editor.foreground` | `--foreground` | Main text color |
-| `sidebarPanel.background` | `--card`, `--popover` | Card backgrounds |
-| `input.background` | `--secondary` | Secondary backgrounds |
-| `list.activeSelectionBackground` | `--accent` | Active selections |
-| `activityBar.background` | `--sidebar-background` | Sidebar background |
-| `editorError.foreground` | `--destructive`, `--status-error` | Error states |
-| `editorWarning.foreground` | `--status-warning` | Warning states |
-| Extracted primary color | `--primary` | Accent color |
+
+| Monaco Theme Color               | CSS Variable                      | Usage                 |
+| -------------------------------- | --------------------------------- | --------------------- |
+| `editor.background`              | `--background`                    | Main app background   |
+| `editor.foreground`              | `--foreground`                    | Main text color       |
+| `sidebarPanel.background`        | `--card`, `--popover`             | Card backgrounds      |
+| `input.background`               | `--secondary`                     | Secondary backgrounds |
+| `list.activeSelectionBackground` | `--accent`                        | Active selections     |
+| `activityBar.background`         | `--sidebar-background`            | Sidebar background    |
+| `editorError.foreground`         | `--destructive`, `--status-error` | Error states          |
+| `editorWarning.foreground`       | `--status-warning`                | Warning states        |
+| Extracted primary color          | `--primary`                       | Accent color          |
 
 ### HSL Conversion Algorithm
 
@@ -234,24 +252,24 @@ const hexToHSL = (hex: string): HSLColor => {
   if (hex.length === 3) {
     hex = hex.split('').map(char => char + char).join('')
   }
-  
+
   // Convert to RGB (0-1 range)
   const r = parseInt(hex.substr(0, 2), 16) / 255
   const g = parseInt(hex.substr(2, 2), 16) / 255
   const b = parseInt(hex.substr(4, 2), 16) / 255
-  
+
   // Calculate lightness
   const max = Math.max(r, g, b)
   const min = Math.min(r, g, b)
   const l = (max + min) / 2
-  
+
   // Calculate saturation
   let s = 0
   if (max !== min) {
     const d = max - min
     s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
   }
-  
+
   // Calculate hue
   let h = 0
   if (max !== min) {
@@ -262,7 +280,7 @@ const hexToHSL = (hex: string): HSLColor => {
       case b: h = ((r - g) / d + 4) / 6; break
     }
   }
-  
+
   return {
     h: Math.round(h * 360),  // 0-360 degrees
     s: Math.round(s * 100),  // 0-100%
@@ -285,17 +303,17 @@ const extractPrimaryColor = (themeData: any): string => {
     'entity.name.function', // Function declarations
     'storage.type'          // e.g., 'class', 'interface'
   ]
-  
+
   // Search through theme rules for these tokens
   for (const token of priorityTokens) {
-    const rule = themeData.rules.find(r => 
+    const rule = themeData.rules.find(r =>
       r.token === token || r.scope?.includes(token)
     )
     if (rule?.foreground) {
       return rule.foreground
     }
   }
-  
+
   // Fallback to orange if no primary found
   // This always returns a color - it does NOT fall back to globals.css
   return '#f97316'
@@ -309,17 +327,17 @@ The system generates a 10-shade scale from the extracted primary color:
 ```javascript
 // Fixed lightness and saturation values for each shade
 const shades = {
-  50:  { lightness: 97, saturation: 97 },  // Lightest
+  50: { lightness: 97, saturation: 97 }, // Lightest
   100: { lightness: 89, saturation: 97 },
   200: { lightness: 78, saturation: 96 },
   300: { lightness: 64, saturation: 94 },
   400: { lightness: 58, saturation: 94 },
-  500: { lightness: 53, saturation: 95 },  // Base primary
+  500: { lightness: 53, saturation: 95 }, // Base primary
   600: { lightness: 48, saturation: 90 },
   700: { lightness: 40, saturation: 88 },
   800: { lightness: 34, saturation: 79 },
-  900: { lightness: 28, saturation: 75 }   // Darkest
-}
+  900: { lightness: 28, saturation: 75 }, // Darkest
+};
 
 // Applied as: --primary-[shade]: h s% l%
 // Example: --primary-500: 25 95% 53%
@@ -331,18 +349,18 @@ When specific colors aren't available in the theme, the system generates them:
 
 ```javascript
 // Sidebar background: 3% lighter/darker than main background
-sidebarBackground: isDark 
-  ? lightenColor(background, 3)   // Dark theme: slightly lighter
-  : darkenColor(background, 3)     // Light theme: slightly darker
+sidebarBackground: isDark
+  ? lightenColor(background, 3) // Dark theme: slightly lighter
+  : darkenColor(background, 3); // Light theme: slightly darker
 
 // Muted colors: Mix of background and foreground
-muted: mixColors(background, foreground, 0.1)      // 10% foreground
-mutedForeground: mixColors(background, foreground, 0.4)  // 40% foreground
+muted: mixColors(background, foreground, 0.1); // 10% foreground
+mutedForeground: mixColors(background, foreground, 0.4); // 40% foreground
 
 // Input background: Generated from theme type
-inputBackground: isDark 
-  ? lightenColor(background, 10)   // Dark: 10% lighter
-  : darkenColor(background, 7)      // Light: 7% darker
+inputBackground: isDark
+  ? lightenColor(background, 10) // Dark: 10% lighter
+  : darkenColor(background, 7); // Light: 7% darker
 ```
 
 ## CSS Variable Application Process
@@ -354,13 +372,13 @@ The theme system applies colors by setting CSS custom properties directly on the
 ```javascript
 const applyThemeColors = (colors: ExtractedThemeColors) => {
   const root = document.documentElement  // <html> element
-  
+
   // Set CSS variable with HSL format
   const setHSLVariable = (varName: string, hexColor: string) => {
     const hsl = hexToHSL(hexColor)
     root.style.setProperty(`--${varName}`, `${hsl.h} ${hsl.s}% ${hsl.l}%`)
   }
-  
+
   // Apply each color
   setHSLVariable('background', colors.background)
   setHSLVariable('foreground', colors.foreground)
@@ -371,16 +389,17 @@ const applyThemeColors = (colors: ExtractedThemeColors) => {
 ### Why This Overrides globals.css
 
 1. **Cascade Priority**: Inline styles have the highest specificity in CSS
+
    ```html
    <!-- This inline style... -->
    <html style="--background: 222.2 47.4% 11.2%">
-   
-   <!-- ...overrides this stylesheet rule -->
-   <style>
-   :root {
-     --background: 0 0% 100%;
-   }
-   </style>
+     <!-- ...overrides this stylesheet rule -->
+     <style>
+       :root {
+         --background: 0 0% 100%;
+       }
+     </style>
+   </html>
    ```
 
 2. **CSS Custom Property Resolution**: When the browser resolves `var(--background)`:
@@ -389,11 +408,12 @@ const applyThemeColors = (colors: ExtractedThemeColors) => {
    - Uses first defined value found
 
 3. **Full Color Application Example**:
+
    ```javascript
    // Monaco theme color: #1e1e1e (VS Code Dark background)
    // Converted to HSL: { h: 0, s: 0, l: 12 }
    // Applied as: --background: 0 0% 12%
-   
+
    // In your component:
    background-color: hsl(var(--background));
    // Resolves to: background-color: hsl(0 0% 12%);
@@ -444,17 +464,19 @@ Here's the full mapping of Monaco colors to CSS variables:
 ## Storage Structure
 
 ### localStorage Keys
+
 - `hacker-portal-light-theme`: Selected light theme name
 - `hacker-portal-dark-theme`: Selected dark theme name
 - `monaco-theme-colors-[themeName]`: Extracted colors for each theme
 
 ### Example Stored Colors
+
 ```json
 {
   "background": "#1e1e1e",
   "foreground": "#d4d4d4",
   "primary": "#569cd6",
-  "sidebarBackground": "#252526",
+  "sidebarBackground": "#252526"
   // ... 40+ more colors
 }
 ```
@@ -488,24 +510,27 @@ Here's the full mapping of Monaco colors to CSS variables:
 ## Developer Notes
 
 ### Adding New Monaco Themes
+
 1. Install theme package
 2. Run `node scripts/analyze-theme-brightness.js`
 3. Verify categorization in generated files
 4. Test theme switching in app
 
 ### Debugging Theme Extraction
+
 ```javascript
 // In browser console
-localStorage.getItem('monaco-theme-colors-Dracula')
-document.documentElement.style.getPropertyValue('--background')
+localStorage.getItem('monaco-theme-colors-Dracula');
+document.documentElement.style.getPropertyValue('--background');
 ```
 
 ### Force Theme Reset
+
 ```javascript
 // Clear all theme data
 Object.keys(localStorage)
-  .filter(k => k.includes('monaco-theme'))
-  .forEach(k => localStorage.removeItem(k))
+  .filter((k) => k.includes('monaco-theme'))
+  .forEach((k) => localStorage.removeItem(k));
 ```
 
 ## Implementation Summary

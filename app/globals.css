@@ -43,7 +43,7 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    
+
     /* Semantic color tokens */
     --primary-50: 228 30% 98%;
     --primary-100: 228 30% 95%;
@@ -55,7 +55,7 @@
     --primary-700: 228 30% 40%;
     --primary-800: 228 30% 30%;
     --primary-900: 228 30% 20%;
-    
+
     /* Status colors */
     --status-success: 142 76% 36%;
     --status-success-foreground: 0 0% 98%;
@@ -106,7 +106,7 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
-    
+
     /* Semantic color tokens */
     --primary-50: 228 30% 98%;
     --primary-100: 228 30% 95%;
@@ -118,7 +118,7 @@
     --primary-700: 228 30% 40%;
     --primary-800: 228 30% 30%;
     --primary-900: 228 30% 20%;
-    
+
     /* Status colors */
     --status-success: 142 76% 36%;
     --status-success-foreground: 0 0% 98%;
@@ -142,15 +142,16 @@
   * {
     @apply border-border;
     /* Smooth transitions for theme color changes */
-    transition: background-color 0.3s ease, 
-                color 0.3s ease, 
-                border-color 0.3s ease,
-                box-shadow 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
   }
   body {
     @apply bg-background text-foreground;
   }
-  
+
   /* Disable transitions during page load to prevent flashing */
   .no-transition * {
     transition: none !important;

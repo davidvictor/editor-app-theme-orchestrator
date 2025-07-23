@@ -274,14 +274,8 @@
     }
   },
   "builtIn": {
-    "light": [
-      "vs",
-      "hc-light"
-    ],
-    "dark": [
-      "vs-dark",
-      "hc-black"
-    ]
+    "light": ["vs", "hc-light"],
+    "dark": ["vs-dark", "hc-black"]
   },
   "statistics": {
     "totalThemes": 54,

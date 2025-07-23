@@ -1,10 +1,10 @@
-"use client"
+'use client';
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
+import { useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 import {
   Server,
   Database,
@@ -16,147 +16,147 @@ import {
   AlertTriangle,
   CheckCircle,
   Settings,
-} from "lucide-react"
+} from 'lucide-react';
 
 export default function SystemsPage() {
-  const [selectedSystem, setSelectedSystem] = useState(null)
+  const [selectedSystem, setSelectedSystem] = useState(null);
 
   const systems = [
     {
-      id: "SYS-001",
-      name: "COMMAND SERVER ALPHA",
-      type: "Primary Server",
-      status: "online",
+      id: 'SYS-001',
+      name: 'COMMAND SERVER ALPHA',
+      type: 'Primary Server',
+      status: 'online',
       health: 98,
       cpu: 45,
       memory: 67,
       storage: 34,
-      uptime: "247 days",
-      location: "Data Center 1",
-      lastMaintenance: "2025-05-15",
+      uptime: '247 days',
+      location: 'Data Center 1',
+      lastMaintenance: '2025-05-15',
     },
     {
-      id: "SYS-002",
-      name: "DATABASE CLUSTER BETA",
-      type: "Database",
-      status: "online",
+      id: 'SYS-002',
+      name: 'DATABASE CLUSTER BETA',
+      type: 'Database',
+      status: 'online',
       health: 95,
       cpu: 72,
       memory: 84,
       storage: 78,
-      uptime: "189 days",
-      location: "Data Center 2",
-      lastMaintenance: "2025-06-01",
+      uptime: '189 days',
+      location: 'Data Center 2',
+      lastMaintenance: '2025-06-01',
     },
     {
-      id: "SYS-003",
-      name: "SECURITY GATEWAY",
-      type: "Firewall",
-      status: "warning",
+      id: 'SYS-003',
+      name: 'SECURITY GATEWAY',
+      type: 'Firewall',
+      status: 'warning',
       health: 87,
       cpu: 23,
       memory: 45,
       storage: 12,
-      uptime: "156 days",
-      location: "DMZ",
-      lastMaintenance: "2025-04-20",
+      uptime: '156 days',
+      location: 'DMZ',
+      lastMaintenance: '2025-04-20',
     },
     {
-      id: "SYS-004",
-      name: "COMMUNICATION HUB",
-      type: "Network",
-      status: "online",
+      id: 'SYS-004',
+      name: 'COMMUNICATION HUB',
+      type: 'Network',
+      status: 'online',
       health: 92,
       cpu: 38,
       memory: 52,
       storage: 23,
-      uptime: "203 days",
-      location: "Network Core",
-      lastMaintenance: "2025-05-28",
+      uptime: '203 days',
+      location: 'Network Core',
+      lastMaintenance: '2025-05-28',
     },
     {
-      id: "SYS-005",
-      name: "BACKUP STORAGE ARRAY",
-      type: "Storage",
-      status: "maintenance",
+      id: 'SYS-005',
+      name: 'BACKUP STORAGE ARRAY',
+      type: 'Storage',
+      status: 'maintenance',
       health: 76,
       cpu: 15,
       memory: 28,
       storage: 89,
-      uptime: "0 days",
-      location: "Backup Facility",
-      lastMaintenance: "2025-06-17",
+      uptime: '0 days',
+      location: 'Backup Facility',
+      lastMaintenance: '2025-06-17',
     },
     {
-      id: "SYS-006",
-      name: "ANALYTICS ENGINE",
-      type: "Processing",
-      status: "online",
+      id: 'SYS-006',
+      name: 'ANALYTICS ENGINE',
+      type: 'Processing',
+      status: 'online',
       health: 94,
       cpu: 89,
       memory: 76,
       storage: 45,
-      uptime: "134 days",
-      location: "Data Center 1",
-      lastMaintenance: "2025-05-10",
+      uptime: '134 days',
+      location: 'Data Center 1',
+      lastMaintenance: '2025-05-10',
     },
-  ]
+  ];
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "online":
-        return "bg-foreground/20 text-foreground"
-      case "warning":
-        return "bg-status-warning/20 text-status-warning"
-      case "maintenance":
-        return "bg-muted/20 text-muted-foreground"
-      case "offline":
-        return "bg-status-error/20 text-status-error"
+      case 'online':
+        return 'bg-foreground/20 text-foreground';
+      case 'warning':
+        return 'bg-status-warning/20 text-status-warning';
+      case 'maintenance':
+        return 'bg-muted/20 text-muted-foreground';
+      case 'offline':
+        return 'bg-status-error/20 text-status-error';
       default:
-        return "bg-muted/20 text-muted-foreground"
+        return 'bg-muted/20 text-muted-foreground';
     }
-  }
+  };
 
   const getStatusIcon = (status) => {
     switch (status) {
-      case "online":
-        return <CheckCircle className="w-4 h-4" />
-      case "warning":
-        return <AlertTriangle className="w-4 h-4" />
-      case "maintenance":
-        return <Settings className="w-4 h-4" />
-      case "offline":
-        return <AlertTriangle className="w-4 h-4" />
+      case 'online':
+        return <CheckCircle className="w-4 h-4" />;
+      case 'warning':
+        return <AlertTriangle className="w-4 h-4" />;
+      case 'maintenance':
+        return <Settings className="w-4 h-4" />;
+      case 'offline':
+        return <AlertTriangle className="w-4 h-4" />;
       default:
-        return <Activity className="w-4 h-4" />
+        return <Activity className="w-4 h-4" />;
     }
-  }
+  };
 
   const getSystemIcon = (type) => {
     switch (type) {
-      case "Primary Server":
-        return <Server className="w-6 h-6" />
-      case "Database":
-        return <Database className="w-6 h-6" />
-      case "Firewall":
-        return <Shield className="w-6 h-6" />
-      case "Network":
-        return <Wifi className="w-6 h-6" />
-      case "Storage":
-        return <HardDrive className="w-6 h-6" />
-      case "Processing":
-        return <Cpu className="w-6 h-6" />
+      case 'Primary Server':
+        return <Server className="w-6 h-6" />;
+      case 'Database':
+        return <Database className="w-6 h-6" />;
+      case 'Firewall':
+        return <Shield className="w-6 h-6" />;
+      case 'Network':
+        return <Wifi className="w-6 h-6" />;
+      case 'Storage':
+        return <HardDrive className="w-6 h-6" />;
+      case 'Processing':
+        return <Cpu className="w-6 h-6" />;
       default:
-        return <Server className="w-6 h-6" />
+        return <Server className="w-6 h-6" />;
     }
-  }
+  };
 
   const getHealthColor = (health) => {
-    if (health >= 95) return "text-foreground"
-    if (health >= 85) return "text-foreground"
-    if (health >= 70) return "text-status-warning"
-    return "text-status-error"
-  }
+    if (health >= 95) return 'text-foreground';
+    if (health >= 85) return 'text-foreground';
+    if (health >= 70) return 'text-status-warning';
+    return 'text-status-error';
+  };
 
   return (
     <div className="p-6 space-y-6">
@@ -164,11 +164,17 @@ export default function SystemsPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-2xl font-bold text-foreground tracking-wider">SYSTEMS MONITOR</h1>
-          <p className="text-sm text-muted-foreground">Infrastructure health and performance monitoring</p>
+          <p className="text-sm text-muted-foreground">
+            Infrastructure health and performance monitoring
+          </p>
         </div>
         <div className="flex gap-2">
-          <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">System Scan</Button>
-          <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">Maintenance Mode</Button>
+          <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">
+            System Scan
+          </Button>
+          <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">
+            Maintenance Mode
+          </Button>
         </div>
       </div>
 
@@ -236,20 +242,26 @@ export default function SystemsPage() {
                 <div className="flex items-center gap-3">
                   {getSystemIcon(system.type)}
                   <div>
-                    <CardTitle className="text-sm font-bold text-foreground tracking-wider">{system.name}</CardTitle>
+                    <CardTitle className="text-sm font-bold text-foreground tracking-wider">
+                      {system.name}
+                    </CardTitle>
                     <p className="text-xs text-muted-foreground">{system.type}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
                   {getStatusIcon(system.status)}
-                  <Badge className={getStatusColor(system.status)}>{system.status.toUpperCase()}</Badge>
+                  <Badge className={getStatusColor(system.status)}>
+                    {system.status.toUpperCase()}
+                  </Badge>
                 </div>
               </div>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs text-muted-foreground">SYSTEM HEALTH</span>
-                <span className={`text-sm font-bold font-mono ${getHealthColor(system.health)}`}>{system.health}%</span>
+                <span className={`text-sm font-bold font-mono ${getHealthColor(system.health)}`}>
+                  {system.health}%
+                </span>
               </div>
               <Progress value={system.health} className="h-2" />
 
@@ -309,7 +321,9 @@ export default function SystemsPage() {
               <div className="flex items-center gap-3">
                 {getSystemIcon(selectedSystem.type)}
                 <div>
-                  <CardTitle className="text-xl font-bold text-foreground tracking-wider">{selectedSystem.name}</CardTitle>
+                  <CardTitle className="text-xl font-bold text-foreground tracking-wider">
+                    {selectedSystem.name}
+                  </CardTitle>
                   <p className="text-sm text-muted-foreground">
                     {selectedSystem.id} • {selectedSystem.type}
                   </p>
@@ -327,7 +341,9 @@ export default function SystemsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-sm font-medium text-muted-foreground tracking-wider mb-2">SYSTEM STATUS</h3>
+                    <h3 className="text-sm font-medium text-muted-foreground tracking-wider mb-2">
+                      SYSTEM STATUS
+                    </h3>
                     <div className="flex items-center gap-2">
                       {getStatusIcon(selectedSystem.status)}
                       <Badge className={getStatusColor(selectedSystem.status)}>
@@ -337,7 +353,9 @@ export default function SystemsPage() {
                   </div>
 
                   <div>
-                    <h3 className="text-sm font-medium text-muted-foreground tracking-wider mb-2">SYSTEM INFORMATION</h3>
+                    <h3 className="text-sm font-medium text-muted-foreground tracking-wider mb-2">
+                      SYSTEM INFORMATION
+                    </h3>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Location:</span>
@@ -349,7 +367,9 @@ export default function SystemsPage() {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Last Maintenance:</span>
-                        <span className="text-foreground font-mono">{selectedSystem.lastMaintenance}</span>
+                        <span className="text-foreground font-mono">
+                          {selectedSystem.lastMaintenance}
+                        </span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-muted-foreground">Health Score:</span>
@@ -363,7 +383,9 @@ export default function SystemsPage() {
 
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-sm font-medium text-muted-foreground tracking-wider mb-2">RESOURCE USAGE</h3>
+                    <h3 className="text-sm font-medium text-muted-foreground tracking-wider mb-2">
+                      RESOURCE USAGE
+                    </h3>
                     <div className="space-y-3">
                       <div>
                         <div className="flex justify-between text-sm mb-1">
@@ -381,7 +403,9 @@ export default function SystemsPage() {
                       <div>
                         <div className="flex justify-between text-sm mb-1">
                           <span className="text-muted-foreground">Memory Usage</span>
-                          <span className="text-foreground font-mono">{selectedSystem.memory}%</span>
+                          <span className="text-foreground font-mono">
+                            {selectedSystem.memory}%
+                          </span>
                         </div>
                         <div className="w-full bg-muted rounded-full h-2">
                           <div
@@ -394,7 +418,9 @@ export default function SystemsPage() {
                       <div>
                         <div className="flex justify-between text-sm mb-1">
                           <span className="text-muted-foreground">Storage Usage</span>
-                          <span className="text-foreground font-mono">{selectedSystem.storage}%</span>
+                          <span className="text-foreground font-mono">
+                            {selectedSystem.storage}%
+                          </span>
                         </div>
                         <div className="w-full bg-muted rounded-full h-2">
                           <div
@@ -409,7 +435,9 @@ export default function SystemsPage() {
               </div>
 
               <div className="flex gap-2 pt-4 border-t border-border">
-                <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">Restart System</Button>
+                <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">
+                  Restart System
+                </Button>
                 <Button
                   variant="outline"
                   className="border-border text-muted-foreground hover:bg-muted hover:text-muted-foreground bg-transparent"
@@ -428,5 +456,5 @@ export default function SystemsPage() {
         </div>
       )}
     </div>
-  )
+  );
 }

@@ -3,365 +3,359 @@
 // This file categorizes all Monaco themes as light or dark based on their background color lightness
 
 export interface ThemeInfo {
-  displayName: string
-  background: string
-  lightness: number
+  displayName: string;
+  background: string;
+  lightness: number;
 }
 
 export interface ThemeBrightnessRegistry {
-  light: Record<string, ThemeInfo>
-  dark: Record<string, ThemeInfo>
+  light: Record<string, ThemeInfo>;
+  dark: Record<string, ThemeInfo>;
   builtIn: {
-    light: string[]
-    dark: string[]
-  }
+    light: string[];
+    dark: string[];
+  };
   statistics: {
-    totalThemes: number
-    lightThemes: number
-    darkThemes: number
+    totalThemes: number;
+    lightThemes: number;
+    darkThemes: number;
     averageLightness: {
-      light: number
-      dark: number
-    }
-  }
+      light: number;
+      dark: number;
+    };
+  };
 }
 
 export const THEME_BRIGHTNESS_REGISTRY: ThemeBrightnessRegistry = {
-  "light": {
-    "Active4D": {
-      "displayName": "Active4D",
-      "background": "#FFFFFF",
-      "lightness": 100
+  light: {
+    Active4D: {
+      displayName: 'Active4D',
+      background: '#FFFFFF',
+      lightness: 100,
     },
-    "Chrome DevTools": {
-      "displayName": "Chrome DevTools",
-      "background": "#FFFFFF",
-      "lightness": 100
+    'Chrome DevTools': {
+      displayName: 'Chrome DevTools',
+      background: '#FFFFFF',
+      lightness: 100,
     },
-    "Clouds": {
-      "displayName": "Clouds",
-      "background": "#FFFFFF",
-      "lightness": 100
+    Clouds: {
+      displayName: 'Clouds',
+      background: '#FFFFFF',
+      lightness: 100,
     },
-    "Dreamweaver": {
-      "displayName": "Dreamweaver",
-      "background": "#FFFFFF",
-      "lightness": 100
+    Dreamweaver: {
+      displayName: 'Dreamweaver',
+      background: '#FFFFFF',
+      lightness: 100,
     },
-    "Eiffel": {
-      "displayName": "Eiffel",
-      "background": "#FFFFFF",
-      "lightness": 100
+    Eiffel: {
+      displayName: 'Eiffel',
+      background: '#FFFFFF',
+      lightness: 100,
     },
-    "GitHub Light": {
-      "displayName": "GitHub Light",
-      "background": "#ffffff",
-      "lightness": 100
+    'GitHub Light': {
+      displayName: 'GitHub Light',
+      background: '#ffffff',
+      lightness: 100,
     },
-    "IDLE": {
-      "displayName": "IDLE",
-      "background": "#FFFFFF",
-      "lightness": 100
+    IDLE: {
+      displayName: 'IDLE',
+      background: '#FFFFFF',
+      lightness: 100,
     },
-    "LAZY": {
-      "displayName": "LAZY",
-      "background": "#FFFFFF",
-      "lightness": 100
+    LAZY: {
+      displayName: 'LAZY',
+      background: '#FFFFFF',
+      lightness: 100,
     },
-    "Textmate (Mac Classic)": {
-      "displayName": "Textmate (Mac Classic)",
-      "background": "#FFFFFF",
-      "lightness": 100
+    'Textmate (Mac Classic)': {
+      displayName: 'Textmate (Mac Classic)',
+      background: '#FFFFFF',
+      lightness: 100,
     },
-    "Tomorrow": {
-      "displayName": "Tomorrow",
-      "background": "#FFFFFF",
-      "lightness": 100
+    Tomorrow: {
+      displayName: 'Tomorrow',
+      background: '#FFFFFF',
+      lightness: 100,
     },
-    "Xcode_default": {
-      "displayName": "Xcode_default",
-      "background": "#FFFFFF",
-      "lightness": 100
+    Xcode_default: {
+      displayName: 'Xcode_default',
+      background: '#FFFFFF',
+      lightness: 100,
     },
-    "GitHub": {
-      "displayName": "GitHub",
-      "background": "#F8F8FF",
-      "lightness": 99
+    GitHub: {
+      displayName: 'GitHub',
+      background: '#F8F8FF',
+      lightness: 99,
     },
-    "Dawn": {
-      "displayName": "Dawn",
-      "background": "#F9F9F9",
-      "lightness": 98
+    Dawn: {
+      displayName: 'Dawn',
+      background: '#F9F9F9',
+      lightness: 98,
     },
-    "Slush and Poppies": {
-      "displayName": "Slush and Poppies",
-      "background": "#F1F1F1",
-      "lightness": 95
+    'Slush and Poppies': {
+      displayName: 'Slush and Poppies',
+      background: '#F1F1F1',
+      lightness: 95,
     },
-    "Solarized-light": {
-      "displayName": "Solarized-light",
-      "background": "#FDF6E3",
-      "lightness": 94
+    'Solarized-light': {
+      displayName: 'Solarized-light',
+      background: '#FDF6E3',
+      lightness: 94,
     },
-    "iPlastic": {
-      "displayName": "iPlastic",
-      "background": "#EEEEEEEB",
-      "lightness": 93
+    iPlastic: {
+      displayName: 'iPlastic',
+      background: '#EEEEEEEB',
+      lightness: 93,
     },
-    "Katzenmilch": {
-      "displayName": "Katzenmilch",
-      "background": "#E8E9E8",
-      "lightness": 91
+    Katzenmilch: {
+      displayName: 'Katzenmilch',
+      background: '#E8E9E8',
+      lightness: 91,
     },
-    "Kuroir Theme": {
-      "displayName": "Kuroir Theme",
-      "background": "#E8E9E8",
-      "lightness": 91
+    'Kuroir Theme': {
+      displayName: 'Kuroir Theme',
+      background: '#E8E9E8',
+      lightness: 91,
     },
-    "MagicWB (Amiga)": {
-      "displayName": "MagicWB (Amiga)",
-      "background": "#969696",
-      "lightness": 59
-    }
+    'MagicWB (Amiga)': {
+      displayName: 'MagicWB (Amiga)',
+      background: '#969696',
+      lightness: 59,
+    },
   },
-  "dark": {
-    "Zenburnesque": {
-      "displayName": "Zenburnesque",
-      "background": "#404040",
-      "lightness": 25
+  dark: {
+    Zenburnesque: {
+      displayName: 'Zenburnesque',
+      background: '#404040',
+      lightness: 25,
     },
-    "Nord": {
-      "displayName": "Nord",
-      "background": "#2E3440",
-      "lightness": 22
+    Nord: {
+      displayName: 'Nord',
+      background: '#2E3440',
+      lightness: 22,
     },
-    "idleFingers": {
-      "displayName": "idleFingers",
-      "background": "#323232",
-      "lightness": 20
+    idleFingers: {
+      displayName: 'idleFingers',
+      background: '#323232',
+      lightness: 20,
     },
-    "Cobalt2": {
-      "displayName": "Cobalt2",
-      "background": "#193549",
-      "lightness": 19
+    Cobalt2: {
+      displayName: 'Cobalt2',
+      background: '#193549',
+      lightness: 19,
     },
-    "Birds of Paradise": {
-      "displayName": "Birds of Paradise",
-      "background": "#372725",
-      "lightness": 18
+    'Birds of Paradise': {
+      displayName: 'Birds of Paradise',
+      background: '#372725',
+      lightness: 18,
     },
-    "Dominion Day": {
-      "displayName": "Dominion Day",
-      "background": "#372725",
-      "lightness": 18
+    'Dominion Day': {
+      displayName: 'Dominion Day',
+      background: '#372725',
+      lightness: 18,
     },
-    "Dracula": {
-      "displayName": "Dracula",
-      "background": "#282a36",
-      "lightness": 18
+    Dracula: {
+      displayName: 'Dracula',
+      background: '#282a36',
+      lightness: 18,
     },
-    "Tomorrow-Night-Eighties": {
-      "displayName": "Tomorrow-Night-Eighties",
-      "background": "#2D2D2D",
-      "lightness": 18
+    'Tomorrow-Night-Eighties': {
+      displayName: 'Tomorrow-Night-Eighties',
+      background: '#2D2D2D',
+      lightness: 18,
     },
-    "GitHub Dark": {
-      "displayName": "GitHub Dark",
-      "background": "#24292e",
-      "lightness": 16
+    'GitHub Dark': {
+      displayName: 'GitHub Dark',
+      background: '#24292e',
+      lightness: 16,
     },
-    "Tomorrow-Night-Blue": {
-      "displayName": "Tomorrow-Night-Blue",
-      "background": "#002451",
-      "lightness": 16
+    'Tomorrow-Night-Blue': {
+      displayName: 'Tomorrow-Night-Blue',
+      background: '#002451',
+      lightness: 16,
     },
-    "monoindustrial": {
-      "displayName": "monoindustrial",
-      "background": "#222C28",
-      "lightness": 15
+    monoindustrial: {
+      displayName: 'monoindustrial',
+      background: '#222C28',
+      lightness: 15,
     },
-    "Monokai Bright": {
-      "displayName": "Monokai Bright",
-      "background": "#272822",
-      "lightness": 15
+    'Monokai Bright': {
+      displayName: 'Monokai Bright',
+      background: '#272822',
+      lightness: 15,
     },
-    "Monokai": {
-      "displayName": "Monokai",
-      "background": "#272822",
-      "lightness": 15
+    Monokai: {
+      displayName: 'Monokai',
+      background: '#272822',
+      lightness: 15,
     },
-    "Oceanic Next": {
-      "displayName": "Oceanic Next",
-      "background": "#1B2B34",
-      "lightness": 15
+    'Oceanic Next': {
+      displayName: 'Oceanic Next',
+      background: '#1B2B34',
+      lightness: 15,
     },
-    "Espresso Libre": {
-      "displayName": "Espresso Libre",
-      "background": "#2A211C",
-      "lightness": 14
+    'Espresso Libre': {
+      displayName: 'Espresso Libre',
+      background: '#2A211C',
+      lightness: 14,
     },
-    "Cobalt": {
-      "displayName": "Cobalt",
-      "background": "#002240",
-      "lightness": 13
+    Cobalt: {
+      displayName: 'Cobalt',
+      background: '#002240',
+      lightness: 13,
     },
-    "Pastels on Dark": {
-      "displayName": "Pastels on Dark",
-      "background": "#211E1E",
-      "lightness": 12
+    'Pastels on Dark': {
+      displayName: 'Pastels on Dark',
+      background: '#211E1E',
+      lightness: 12,
     },
-    "Tomorrow-Night": {
-      "displayName": "Tomorrow-Night",
-      "background": "#1D1F21",
-      "lightness": 12
+    'Tomorrow-Night': {
+      displayName: 'Tomorrow-Night',
+      background: '#1D1F21',
+      lightness: 12,
     },
-    "Solarized-dark": {
-      "displayName": "Solarized-dark",
-      "background": "#002B36",
-      "lightness": 11
+    'Solarized-dark': {
+      displayName: 'Solarized-dark',
+      background: '#002B36',
+      lightness: 11,
     },
-    "Clouds Midnight": {
-      "displayName": "Clouds Midnight",
-      "background": "#191919",
-      "lightness": 10
+    'Clouds Midnight': {
+      displayName: 'Clouds Midnight',
+      background: '#191919',
+      lightness: 10,
     },
-    "Blackboard": {
-      "displayName": "Blackboard",
-      "background": "#0C1021",
-      "lightness": 9
+    Blackboard: {
+      displayName: 'Blackboard',
+      background: '#0C1021',
+      lightness: 9,
     },
-    "Merbivore Soft": {
-      "displayName": "Merbivore Soft",
-      "background": "#161616",
-      "lightness": 9
+    'Merbivore Soft': {
+      displayName: 'Merbivore Soft',
+      background: '#161616',
+      lightness: 9,
     },
-    "Merbivore": {
-      "displayName": "Merbivore",
-      "background": "#161616",
-      "lightness": 9
+    Merbivore: {
+      displayName: 'Merbivore',
+      background: '#161616',
+      lightness: 9,
     },
-    "Night Owl": {
-      "displayName": "Night Owl",
-      "background": "#011627",
-      "lightness": 8
+    'Night Owl': {
+      displayName: 'Night Owl',
+      background: '#011627',
+      lightness: 8,
     },
-    "Twilight": {
-      "displayName": "Twilight",
-      "background": "#141414",
-      "lightness": 8
+    Twilight: {
+      displayName: 'Twilight',
+      background: '#141414',
+      lightness: 8,
     },
-    "Amy": {
-      "displayName": "Amy",
-      "background": "#200020",
-      "lightness": 6
+    Amy: {
+      displayName: 'Amy',
+      background: '#200020',
+      lightness: 6,
     },
-    "Brilliance Black": {
-      "displayName": "Brilliance Black",
-      "background": "#0D0D0DFA",
-      "lightness": 5
+    'Brilliance Black': {
+      displayName: 'Brilliance Black',
+      background: '#0D0D0DFA',
+      lightness: 5,
     },
-    "SpaceCadet": {
-      "displayName": "SpaceCadet",
-      "background": "#0D0D0D",
-      "lightness": 5
+    SpaceCadet: {
+      displayName: 'SpaceCadet',
+      background: '#0D0D0D',
+      lightness: 5,
     },
-    "krTheme": {
-      "displayName": "krTheme",
-      "background": "#0B0A09",
-      "lightness": 4
+    krTheme: {
+      displayName: 'krTheme',
+      background: '#0B0A09',
+      lightness: 4,
     },
-    "Brilliance Dull": {
-      "displayName": "Brilliance Dull",
-      "background": "#050505FA",
-      "lightness": 2
+    'Brilliance Dull': {
+      displayName: 'Brilliance Dull',
+      background: '#050505FA',
+      lightness: 2,
     },
-    "All Hallows Eve": {
-      "displayName": "All Hallows Eve",
-      "background": "#000000",
-      "lightness": 0
+    'All Hallows Eve': {
+      displayName: 'All Hallows Eve',
+      background: '#000000',
+      lightness: 0,
     },
-    "Sunburst": {
-      "displayName": "Sunburst",
-      "background": "#000000",
-      "lightness": 0
+    Sunburst: {
+      displayName: 'Sunburst',
+      background: '#000000',
+      lightness: 0,
     },
-    "Tomorrow-Night-Bright": {
-      "displayName": "Tomorrow-Night-Bright",
-      "background": "#000000",
-      "lightness": 0
+    'Tomorrow-Night-Bright': {
+      displayName: 'Tomorrow-Night-Bright',
+      background: '#000000',
+      lightness: 0,
     },
-    "Upstream Sunburst": {
-      "displayName": "Upstream Sunburst",
-      "background": "#000000F7",
-      "lightness": 0
+    'Upstream Sunburst': {
+      displayName: 'Upstream Sunburst',
+      background: '#000000F7',
+      lightness: 0,
     },
-    "Vibrant Ink": {
-      "displayName": "Vibrant Ink",
-      "background": "#000000",
-      "lightness": 0
-    }
+    'Vibrant Ink': {
+      displayName: 'Vibrant Ink',
+      background: '#000000',
+      lightness: 0,
+    },
   },
-  "builtIn": {
-    "light": [
-      "vs",
-      "hc-light"
-    ],
-    "dark": [
-      "vs-dark",
-      "hc-black"
-    ]
+  builtIn: {
+    light: ['vs', 'hc-light'],
+    dark: ['vs-dark', 'hc-black'],
   },
-  "statistics": {
-    "totalThemes": 54,
-    "lightThemes": 19,
-    "darkThemes": 35,
-    "averageLightness": {
-      "light": 96,
-      "dark": 11
-    }
-  }
-}
+  statistics: {
+    totalThemes: 54,
+    lightThemes: 19,
+    darkThemes: 35,
+    averageLightness: {
+      light: 96,
+      dark: 11,
+    },
+  },
+};
 
 // Helper functions
 export function isLightTheme(themeName: string): boolean {
   // Check built-in themes
   if (THEME_BRIGHTNESS_REGISTRY.builtIn.light.includes(themeName)) {
-    return true
+    return true;
   }
   if (THEME_BRIGHTNESS_REGISTRY.builtIn.dark.includes(themeName)) {
-    return false
+    return false;
   }
-  
+
   // Check custom themes
-  return themeName in THEME_BRIGHTNESS_REGISTRY.light
+  return themeName in THEME_BRIGHTNESS_REGISTRY.light;
 }
 
 export function isDarkTheme(themeName: string): boolean {
-  return !isLightTheme(themeName)
+  return !isLightTheme(themeName);
 }
 
 export function getThemeInfo(themeName: string): ThemeInfo | null {
-  return THEME_BRIGHTNESS_REGISTRY.light[themeName] || 
-         THEME_BRIGHTNESS_REGISTRY.dark[themeName] || 
-         null
+  return (
+    THEME_BRIGHTNESS_REGISTRY.light[themeName] || THEME_BRIGHTNESS_REGISTRY.dark[themeName] || null
+  );
 }
 
 export function getAllLightThemes(): string[] {
   return [
     ...THEME_BRIGHTNESS_REGISTRY.builtIn.light,
-    ...Object.keys(THEME_BRIGHTNESS_REGISTRY.light)
-  ]
+    ...Object.keys(THEME_BRIGHTNESS_REGISTRY.light),
+  ];
 }
 
 export function getAllDarkThemes(): string[] {
   return [
     ...THEME_BRIGHTNESS_REGISTRY.builtIn.dark,
-    ...Object.keys(THEME_BRIGHTNESS_REGISTRY.dark)
-  ]
+    ...Object.keys(THEME_BRIGHTNESS_REGISTRY.dark),
+  ];
 }
 
 export function getThemeBrightness(themeName: string): 'light' | 'dark' | null {
-  if (isLightTheme(themeName)) return 'light'
-  if (isDarkTheme(themeName)) return 'dark'
-  return null
+  if (isLightTheme(themeName)) return 'light';
+  if (isDarkTheme(themeName)) return 'dark';
+  return null;
 }

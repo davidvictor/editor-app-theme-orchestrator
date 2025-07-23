@@ -1,6 +1,6 @@
-"use client"
+'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function CommandCenterPage() {
   return (
@@ -10,7 +10,9 @@ export default function CommandCenterPage() {
         {/* Agent Status Overview */}
         <Card className="lg:col-span-4 bg-card border-border">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">AGENT ALLOCATION</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">
+              AGENT ALLOCATION
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-3 gap-4 mb-6">
@@ -29,10 +31,10 @@ export default function CommandCenterPage() {
             </div>
             <div className="space-y-2">
               {[
-                { id: "G-078W", name: "VENGEFUL SPIRIT", status: "active" },
-                { id: "G-079X", name: "OBSIDIAN SENTINEL", status: "standby" },
-                { id: "G-080Y", name: "GHOSTLY FURY", status: "active" },
-                { id: "G-081Z", name: "CURSED REVENANT", status: "compromised" },
+                { id: 'G-078W', name: 'VENGEFUL SPIRIT', status: 'active' },
+                { id: 'G-079X', name: 'OBSIDIAN SENTINEL', status: 'standby' },
+                { id: 'G-080Y', name: 'GHOSTLY FURY', status: 'active' },
+                { id: 'G-081Z', name: 'CURSED REVENANT', status: 'compromised' },
               ].map((agent) => (
                 <div
                   key={agent.id}
@@ -41,11 +43,11 @@ export default function CommandCenterPage() {
                   <div className="flex items-center gap-3">
                     <div
                       className={`w-2 h-2 rounded-full ${
-                        agent.status === "active"
-                          ? "bg-status-success"
-                          : agent.status === "standby"
-                          ? "bg-status-warning"
-                          : "bg-status-error"
+                        agent.status === 'active'
+                          ? 'bg-status-success'
+                          : agent.status === 'standby'
+                            ? 'bg-status-warning'
+                            : 'bg-status-error'
                       }`}
                     ></div>
                     <div>
@@ -62,45 +64,47 @@ export default function CommandCenterPage() {
         {/* Activity Log */}
         <Card className="lg:col-span-4 bg-card border-border">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">ACTIVITY LOG</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">
+              ACTIVITY LOG
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3 max-h-80 overflow-y-auto">
               {[
                 {
-                  time: "25/06/2025 09:29",
-                  agent: "gh0st_Fire",
-                  action: "completed mission in",
-                  location: "Berlin",
-                  target: "zer0_Nigh",
+                  time: '25/06/2025 09:29',
+                  agent: 'gh0st_Fire',
+                  action: 'completed mission in',
+                  location: 'Berlin',
+                  target: 'zer0_Nigh',
                 },
                 {
-                  time: "25/06/2025 08:12",
-                  agent: "dr4g0n_V3in",
-                  action: "extracted high-value target in",
-                  location: "Cairo",
+                  time: '25/06/2025 08:12',
+                  agent: 'dr4g0n_V3in',
+                  action: 'extracted high-value target in',
+                  location: 'Cairo',
                   target: null,
                 },
                 {
-                  time: "24/06/2025 22:55",
-                  agent: "sn4ke_Sh4de",
-                  action: "lost communication in",
-                  location: "Havana",
+                  time: '24/06/2025 22:55',
+                  agent: 'sn4ke_Sh4de',
+                  action: 'lost communication in',
+                  location: 'Havana',
                   target: null,
                 },
                 {
-                  time: "24/06/2025 21:33",
-                  agent: "ph4nt0m_R4ven",
-                  action: "initiated surveillance in",
-                  location: "Tokyo",
+                  time: '24/06/2025 21:33',
+                  agent: 'ph4nt0m_R4ven',
+                  action: 'initiated surveillance in',
+                  location: 'Tokyo',
                   target: null,
                 },
                 {
-                  time: "24/06/2025 19:45",
-                  agent: "v0id_Walk3r",
-                  action: "compromised security in",
-                  location: "Moscow",
-                  target: "d4rk_M4trix",
+                  time: '24/06/2025 19:45',
+                  agent: 'v0id_Walk3r',
+                  action: 'compromised security in',
+                  location: 'Moscow',
+                  target: 'd4rk_M4trix',
                 },
               ].map((log, index) => (
                 <div
@@ -109,11 +113,11 @@ export default function CommandCenterPage() {
                 >
                   <div className="text-muted-foreground font-mono">{log.time}</div>
                   <div className="text-foreground">
-                    Agent <span className="text-primary-500 font-mono">{log.agent}</span> {log.action}{" "}
-                    <span className="text-foreground font-mono">{log.location}</span>
+                    Agent <span className="text-primary-500 font-mono">{log.agent}</span>{' '}
+                    {log.action} <span className="text-foreground font-mono">{log.location}</span>
                     {log.target && (
                       <span>
-                        {" "}
+                        {' '}
                         with agent <span className="text-primary-500 font-mono">{log.target}</span>
                       </span>
                     )}
@@ -149,9 +153,11 @@ export default function CommandCenterPage() {
               <div className="flex justify-between">
                 <span># 2025-06-17 14:23 UTC</span>
               </div>
-              <div className="text-foreground">{"> [AGT:gh0stfire] ::: INIT >> ^^^ loading secure channel"}</div>
-              <div className="text-primary-500">{"> CH#2 | 1231.9082464.500...xR3"}</div>
-              <div className="text-foreground">{"> KEY LOCKED"}</div>
+              <div className="text-foreground">
+                {'> [AGT:gh0stfire] ::: INIT >> ^^^ loading secure channel'}
+              </div>
+              <div className="text-primary-500">{'> CH#2 | 1231.9082464.500...xR3'}</div>
+              <div className="text-foreground">{'> KEY LOCKED'}</div>
               <div className="text-muted-foreground/70">
                 {'> MSG >> "...mission override initiated... awaiting delta node clearance"'}
               </div>
@@ -209,7 +215,9 @@ export default function CommandCenterPage() {
         {/* Mission Information */}
         <Card className="lg:col-span-4 bg-card border-border">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">MISSION INFORMATION</CardTitle>
+            <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">
+              MISSION INFORMATION
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
@@ -258,5 +266,5 @@ export default function CommandCenterPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }
