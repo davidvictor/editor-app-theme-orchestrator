@@ -372,7 +372,7 @@ export default function SystemsPage() {
                         </div>
                         <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-2">
                           <div
-                            className="bg-orange-500 h-2 rounded-full transition-all duration-300"
+                            className="bg-primary-500 h-2 rounded-full transition-all duration-300"
                             style={{ width: `${selectedSystem.cpu}%` }}
                           ></div>
                         </div>
@@ -385,7 +385,7 @@ export default function SystemsPage() {
                         </div>
                         <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-2">
                           <div
-                            className="bg-orange-500 h-2 rounded-full transition-all duration-300"
+                            className="bg-primary-500 h-2 rounded-full transition-all duration-300"
                             style={{ width: `${selectedSystem.memory}%` }}
                           ></div>
                         </div>
@@ -398,7 +398,7 @@ export default function SystemsPage() {
                         </div>
                         <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-2">
                           <div
-                            className="bg-orange-500 h-2 rounded-full transition-all duration-300"
+                            className="bg-primary-500 h-2 rounded-full transition-all duration-300"
                             style={{ width: `${selectedSystem.storage}%` }}
                           ></div>
                         </div>

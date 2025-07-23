@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label"
 import { AlertCircle } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { STORAGE_KEYS, BUILT_IN_THEMES, MONACO_THEMES, DEFAULT_CONFIG, JAVASCRIPT_TEMPLATE, SQL_TEMPLATE } from "@/lib/hacker-portal-config"
+import { extractThemeColors, applyThemeColors, saveThemeColors, loadThemeColors } from "@/lib/theme-sync"
 
 // Transform string arrays to objects with value and label
 const BUILT_IN_THEME_OPTIONS = [
@@ -85,6 +86,16 @@ export default function HackerPortalPage() {
     const savedSqlCode = safeGetItem(STORAGE_KEYS.CODE + '_sql', SQL_TEMPLATE)
     setSqlCode(savedSqlCode)
   }, [])
+  
+  // Load saved theme colors on mount
+  useEffect(() => {
+    if (!mounted || !theme) return
+    
+    const savedColors = loadThemeColors(theme as 'light' | 'dark')
+    if (savedColors) {
+      applyThemeColors(savedColors)
+    }
+  }, [mounted, theme])
 
   // Watch for theme changes and apply the appropriate Monaco theme
   useEffect(() => {
@@ -103,6 +114,36 @@ export default function HackerPortalPage() {
         }
       })
     }
+  }, [theme, lightTheme, darkTheme, monacoInstance, mounted])
+  
+  // Extract and apply theme colors when theme changes
+  useEffect(() => {
+    if (!monacoInstance || !mounted || !theme) return
+    
+    const extractAndApplyColors = async () => {
+      try {
+        const themeToApply = theme === "dark" ? darkTheme : lightTheme
+        const themeId = getThemeId(themeToApply)
+        const isBuiltIn = BUILT_IN_THEME_OPTIONS.some(t => t.value === themeToApply)
+        
+        // Wait longer for custom themes to fully load
+        await new Promise(resolve => setTimeout(resolve, isBuiltIn ? 100 : 500))
+        
+        console.log('Extracting colors for theme:', themeToApply, 'ID:', themeId, 'Built-in:', isBuiltIn)
+        
+        const colors = await extractThemeColors(monacoInstance, themeToApply, isBuiltIn)
+        console.log('Extracted colors:', colors)
+        
+        applyThemeColors(colors)
+        
+        // Save to localStorage
+        saveThemeColors(theme as 'light' | 'dark', colors)
+      } catch (error) {
+        console.error('Failed to extract theme colors:', error)
+      }
+    }
+    
+    extractAndApplyColors()
   }, [theme, lightTheme, darkTheme, monacoInstance, mounted])
 
   // Determine current theme
@@ -155,6 +196,17 @@ export default function HackerPortalPage() {
     // Apply theme if it's the current mode
     if ((theme === "dark" && isDark) || (theme === "light" && !isDark)) {
       monacoInstance.editor.setTheme(themeIdToUse)
+      
+      // Extract and apply colors after theme change
+      setTimeout(async () => {
+        const isBuiltIn = BUILT_IN_THEME_OPTIONS.some(t => t.value === newTheme)
+        console.log('Theme changed to:', newTheme, 'Extracting colors...')
+        // Pass the original theme name, not the ID
+        const colors = await extractThemeColors(monacoInstance, newTheme, isBuiltIn)
+        console.log('Colors extracted after theme change:', colors)
+        applyThemeColors(colors)
+        saveThemeColors(theme as 'light' | 'dark', colors)
+      }, 300)
     }
   }
 

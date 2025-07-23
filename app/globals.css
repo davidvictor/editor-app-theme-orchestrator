@@ -141,8 +141,18 @@
 @layer base {
   * {
     @apply border-border;
+    /* Smooth transitions for theme color changes */
+    transition: background-color 0.3s ease, 
+                color 0.3s ease, 
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
   }
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* Disable transitions during page load to prevent flashing */
+  .no-transition * {
+    transition: none !important;
   }
 }

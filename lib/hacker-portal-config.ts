@@ -1,4 +1,5 @@
 // Hacker Portal Configuration Constants
+import { getAllThemeNames } from './monaco-themes-registry'
 
 export const STORAGE_KEYS = {
   LIGHT_THEME: 'hacker-portal-light-theme',
@@ -11,23 +12,10 @@ export const BUILT_IN_THEMES = [
   'vs', 'vs-dark', 'hc-black', 'hc-light'
 ]
 
-export const MONACO_THEMES = [
-  'Active4D', 'All Hallows Eve', 'Amy', 'Birds of Paradise',
-  'Blackboard', 'Brilliance Black', 'Brilliance Dull',
-  'Chrome DevTools', 'Clouds Midnight', 'Clouds',
-  'Cobalt', 'Cobalt2', 'Dawn', 'Dracula', 'Dreamweaver',
-  'Eiffel', 'Espresso Libre', 'GitHub Dark', 'GitHub Light',
-  'GitHub', 'IDLE', 'Katzenmilch', 'Kuroir Theme',
-  'LAZY', 'MagicWB (Amiga)', 'Merbivore Soft', 'Merbivore',
-  'Monokai Bright', 'Monokai', 'Night Owl', 'Nord',
-  'Oceanic Next', 'Pastels on Dark', 'Slush and Poppies',
-  'Solarized-dark', 'Solarized-light', 'SpaceCadet',
-  'Sunburst', 'Textmate (Mac Classic)', 'Tomorrow-Night-Blue',
-  'Tomorrow-Night-Bright', 'Tomorrow-Night-Eighties',
-  'Tomorrow-Night', 'Tomorrow', 'Twilight', 'Upstream Sunburst',
-  'Vibrant Ink', 'Xcode_default', 'Zenburnesque', 'iPlastic',
-  'idleFingers', 'krTheme', 'monoindustrial'
-]
+// Get all Monaco themes excluding built-ins
+export const MONACO_THEMES = getAllThemeNames().filter(theme => 
+  !['vs', 'vs-dark', 'hc-black', 'hc-light'].includes(theme)
+)
 
 export const DEFAULT_CONFIG = {
   fontSize: 14,
