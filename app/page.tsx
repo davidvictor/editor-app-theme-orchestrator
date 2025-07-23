@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronRight, Monitor, Settings, Shield, Target, Users, Bell, RefreshCw } from "lucide-react"
+import { ChevronRight, Monitor, Settings, Shield, Target, Users, Bell, RefreshCw, Code2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import CommandCenterPage from "./command-center/page"
@@ -9,9 +9,10 @@ import AgentNetworkPage from "./agent-network/page"
 import OperationsPage from "./operations/page"
 import IntelligencePage from "./intelligence/page"
 import SystemsPage from "./systems/page"
+import HackerPortalPage from "./hacker-portal/page"
 
 export default function TacticalDashboard() {
-  const [activeSection, setActiveSection] = useState("overview")
+  const [activeSection, setActiveSection] = useState("hacker-portal")
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   return (
@@ -40,6 +41,7 @@ export default function TacticalDashboard() {
 
           <nav className="space-y-2">
             {[
+              { id: "hacker-portal", icon: Code2, label: "HACKER PORTAL" },
               { id: "overview", icon: Monitor, label: "COMMAND CENTER" },
               { id: "agents", icon: Users, label: "AGENT NETWORK" },
               { id: "operations", icon: Target, label: "OPERATIONS" },
@@ -110,6 +112,7 @@ export default function TacticalDashboard() {
           {activeSection === "operations" && <OperationsPage />}
           {activeSection === "intelligence" && <IntelligencePage />}
           {activeSection === "systems" && <SystemsPage />}
+          {activeSection === "hacker-portal" && <HackerPortalPage />}
         </div>
       </div>
     </div>
