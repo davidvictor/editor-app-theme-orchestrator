@@ -986,10 +986,10 @@ export default function HackerPortalPage() {
   }
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div className="h-screen p-6 flex flex-col">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0">
         {/* Main Editor Card */}
-        <Card className="lg:col-span-8 h-[600px]">
+        <Card className="lg:col-span-8 h-full">
           <CardHeader>
             <CardTitle className="text-2xl font-bold tracking-wider text-orange-500">CODE EDITOR</CardTitle>
           </CardHeader>
@@ -1025,8 +1025,10 @@ export default function HackerPortalPage() {
           </CardContent>
         </Card>
 
-        {/* Theme Selector Card */}
-        <Card className="lg:col-span-4">
+        {/* Right Side Column */}
+        <div className="lg:col-span-4 flex flex-col gap-6 h-full">
+          {/* Theme Selector Card */}
+          <Card>
           <CardHeader>
             <CardTitle className="text-xl font-bold tracking-wider text-orange-500">THEME CONTROL</CardTitle>
           </CardHeader>
@@ -1081,8 +1083,8 @@ export default function HackerPortalPage() {
           </CardContent>
         </Card>
 
-        {/* Configuration Editor Card */}
-        <Card className="lg:col-span-4 h-[400px]">
+          {/* Configuration Editor Card */}
+          <Card className="flex-1 min-h-0">
           <CardHeader>
             <CardTitle className="text-xl font-bold tracking-wider text-orange-500">CONFIGURATION</CardTitle>
           </CardHeader>
@@ -1108,7 +1110,8 @@ export default function HackerPortalPage() {
               onMount={handleConfigEditorDidMount}
             />
           </CardContent>
-        </Card>
+          </Card>
+        </div>
       </div>
     </div>
   )
