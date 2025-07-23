@@ -4,9 +4,8 @@ import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'Tactical Operations Dashboard',
-  description: 'Tactical command and control system',
-  generator: 'v0.dev',
+  title: 'Editor Theme Sync',
+  description: 'A sophisticated theme synchronization system that extracts colors from Monaco Editor themes and applies them to your entire application',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
