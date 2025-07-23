@@ -80,13 +80,13 @@ export default function OperationsPage() {
   const getStatusColor = (status) => {
     switch (status) {
       case "active":
-        return "bg-green-500/20 text-green-500"
+        return "bg-status-success/20 text-status-success"
       case "planning":
-        return "bg-orange-500/20 text-orange-500"
+        return "bg-primary-500/20 text-primary-500"
       case "completed":
-        return "bg-green-500/20 text-green-500"
+        return "bg-status-success/20 text-status-success"
       case "compromised":
-        return "bg-red-500/20 text-red-500"
+        return "bg-status-error/20 text-status-error"
       default:
         return "bg-neutral-500/20 text-muted-foreground"
     }
@@ -95,13 +95,13 @@ export default function OperationsPage() {
   const getPriorityColor = (priority) => {
     switch (priority) {
       case "critical":
-        return "bg-red-500/20 text-red-500"
+        return "bg-status-error/20 text-status-error"
       case "high":
-        return "bg-orange-500/20 text-orange-500"
+        return "bg-primary-500/20 text-primary-500"
       case "medium":
         return "bg-neutral-500/20 text-muted-foreground"
       case "low":
-        return "bg-green-500/20 text-green-500"
+        return "bg-status-success/20 text-status-success"
       default:
         return "bg-neutral-500/20 text-muted-foreground"
     }
@@ -131,8 +131,8 @@ export default function OperationsPage() {
           <p className="text-sm text-muted-foreground">Mission planning and execution oversight</p>
         </div>
         <div className="flex gap-2">
-          <Button className="bg-orange-500 hover:bg-orange-600 text-foreground">New Operation</Button>
-          <Button className="bg-orange-500 hover:bg-orange-600 text-foreground">Mission Brief</Button>
+          <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">New Operation</Button>
+          <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">Mission Brief</Button>
         </div>
       </div>
 
@@ -167,9 +167,9 @@ export default function OperationsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-muted-foreground tracking-wider">COMPROMISED</p>
-                <p className="text-2xl font-bold text-red-500 font-mono">2</p>
+                <p className="text-2xl font-bold text-status-error font-mono">2</p>
               </div>
-              <XCircle className="w-8 h-8 text-red-500" />
+              <XCircle className="w-8 h-8 text-status-error" />
             </div>
           </CardContent>
         </Card>
@@ -192,7 +192,7 @@ export default function OperationsPage() {
         {operations.map((operation) => (
           <Card
             key={operation.id}
-            className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700 hover:border-orange-500/50 transition-colors cursor-pointer"
+            className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700 hover:border-primary-500/50 transition-colors cursor-pointer"
             onClick={() => setSelectedOperation(operation)}
           >
             <CardHeader className="pb-3">
@@ -234,7 +234,7 @@ export default function OperationsPage() {
                 </div>
                 <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-2">
                   <div
-                    className="bg-orange-500 h-2 rounded-full transition-all duration-300"
+                    className="bg-primary-500 h-2 rounded-full transition-all duration-300"
                     style={{ width: `${operation.progress}%` }}
                   ></div>
                 </div>
@@ -309,7 +309,7 @@ export default function OperationsPage() {
                       </div>
                       <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-3">
                         <div
-                          className="bg-orange-500 h-3 rounded-full transition-all duration-300"
+                          className="bg-primary-500 h-3 rounded-full transition-all duration-300"
                           style={{ width: `${selectedOperation.progress}%` }}
                         ></div>
                       </div>
@@ -321,7 +321,7 @@ export default function OperationsPage() {
                     <div className="space-y-2">
                       {selectedOperation.objectives.map((objective, index) => (
                         <div key={index} className="flex items-center gap-2 text-sm">
-                          <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                          <div className="w-2 h-2 bg-primary-500 rounded-full"></div>
                           <span className="text-muted-foreground">{objective}</span>
                         </div>
                       ))}
@@ -336,7 +336,7 @@ export default function OperationsPage() {
               </div>
 
               <div className="flex gap-2 pt-4 border-t border-border dark:border-neutral-700">
-                <Button className="bg-orange-500 hover:bg-orange-600 text-foreground">Update Status</Button>
+                <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">Update Status</Button>
                 <Button
                   variant="outline"
                   className="border-border dark:border-neutral-700 text-muted-foreground hover:bg-muted dark:hover:bg-neutral-800 hover:text-muted-foreground bg-transparent"

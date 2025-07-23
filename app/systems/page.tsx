@@ -107,11 +107,11 @@ export default function SystemsPage() {
       case "online":
         return "bg-foreground/20 text-foreground"
       case "warning":
-        return "bg-orange-500/20 text-orange-500"
+        return "bg-status-warning/20 text-status-warning"
       case "maintenance":
         return "bg-neutral-500/20 text-muted-foreground"
       case "offline":
-        return "bg-red-500/20 text-red-500"
+        return "bg-status-error/20 text-status-error"
       default:
         return "bg-neutral-500/20 text-muted-foreground"
     }
@@ -154,8 +154,8 @@ export default function SystemsPage() {
   const getHealthColor = (health) => {
     if (health >= 95) return "text-foreground"
     if (health >= 85) return "text-foreground"
-    if (health >= 70) return "text-orange-500"
-    return "text-red-500"
+    if (health >= 70) return "text-status-warning"
+    return "text-status-error"
   }
 
   return (
@@ -167,8 +167,8 @@ export default function SystemsPage() {
           <p className="text-sm text-muted-foreground">Infrastructure health and performance monitoring</p>
         </div>
         <div className="flex gap-2">
-          <Button className="bg-orange-500 hover:bg-orange-600 text-foreground">System Scan</Button>
-          <Button className="bg-orange-500 hover:bg-orange-600 text-foreground">Maintenance Mode</Button>
+          <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">System Scan</Button>
+          <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">Maintenance Mode</Button>
         </div>
       </div>
 
@@ -191,9 +191,9 @@ export default function SystemsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-muted-foreground tracking-wider">WARNINGS</p>
-                <p className="text-2xl font-bold text-orange-500 font-mono">3</p>
+                <p className="text-2xl font-bold text-status-warning font-mono">3</p>
               </div>
-              <AlertTriangle className="w-8 h-8 text-orange-500" />
+              <AlertTriangle className="w-8 h-8 text-status-warning" />
             </div>
           </CardContent>
         </Card>
@@ -228,7 +228,7 @@ export default function SystemsPage() {
         {systems.map((system) => (
           <Card
             key={system.id}
-            className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700 hover:border-orange-500/50 transition-colors cursor-pointer"
+            className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700 hover:border-primary-500/50 transition-colors cursor-pointer"
             onClick={() => setSelectedSystem(system)}
           >
             <CardHeader className="pb-3">
@@ -259,7 +259,7 @@ export default function SystemsPage() {
                   <div className="text-foreground font-mono">{system.cpu}%</div>
                   <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-1 mt-1">
                     <div
-                      className="bg-orange-500 h-1 rounded-full transition-all duration-300"
+                      className="bg-primary-500 h-1 rounded-full transition-all duration-300"
                       style={{ width: `${system.cpu}%` }}
                     ></div>
                   </div>
@@ -269,7 +269,7 @@ export default function SystemsPage() {
                   <div className="text-foreground font-mono">{system.memory}%</div>
                   <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-1 mt-1">
                     <div
-                      className="bg-orange-500 h-1 rounded-full transition-all duration-300"
+                      className="bg-primary-500 h-1 rounded-full transition-all duration-300"
                       style={{ width: `${system.memory}%` }}
                     ></div>
                   </div>
@@ -279,7 +279,7 @@ export default function SystemsPage() {
                   <div className="text-foreground font-mono">{system.storage}%</div>
                   <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-1 mt-1">
                     <div
-                      className="bg-orange-500 h-1 rounded-full transition-all duration-300"
+                      className="bg-primary-500 h-1 rounded-full transition-all duration-300"
                       style={{ width: `${system.storage}%` }}
                     ></div>
                   </div>
@@ -409,7 +409,7 @@ export default function SystemsPage() {
               </div>
 
               <div className="flex gap-2 pt-4 border-t border-border dark:border-neutral-700">
-                <Button className="bg-orange-500 hover:bg-orange-600 text-foreground">Restart System</Button>
+                <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">Restart System</Button>
                 <Button
                   variant="outline"
                   className="border-border dark:border-neutral-700 text-muted-foreground hover:bg-muted dark:hover:bg-neutral-800 hover:text-muted-foreground bg-transparent"

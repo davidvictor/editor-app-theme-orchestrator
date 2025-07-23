@@ -77,9 +77,9 @@ export default function IntelligencePage() {
   const getClassificationColor = (classification) => {
     switch (classification) {
       case "TOP SECRET":
-        return "bg-red-500/20 text-red-500"
+        return "bg-status-error/20 text-status-error"
       case "SECRET":
-        return "bg-orange-500/20 text-orange-500"
+        return "bg-primary-500/20 text-primary-500"
       case "CONFIDENTIAL":
         return "bg-neutral-500/20 text-muted-foreground"
       default:
@@ -90,9 +90,9 @@ export default function IntelligencePage() {
   const getThreatColor = (threat) => {
     switch (threat) {
       case "critical":
-        return "bg-red-500/20 text-red-500"
+        return "bg-status-error/20 text-status-error"
       case "high":
-        return "bg-orange-500/20 text-orange-500"
+        return "bg-primary-500/20 text-primary-500"
       case "medium":
         return "bg-neutral-500/20 text-muted-foreground"
       case "low":
@@ -107,7 +107,7 @@ export default function IntelligencePage() {
       case "verified":
         return "bg-white/20 text-foreground"
       case "pending":
-        return "bg-orange-500/20 text-orange-500"
+        return "bg-primary-500/20 text-primary-500"
       case "active":
         return "bg-white/20 text-foreground"
       default:
@@ -131,8 +131,8 @@ export default function IntelligencePage() {
           <p className="text-sm text-muted-foreground">Classified reports and threat analysis</p>
         </div>
         <div className="flex gap-2">
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white">New Report</Button>
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+          <Button className="bg-primary-500 hover:bg-primary-600 text-white">New Report</Button>
+          <Button className="bg-primary-500 hover:bg-primary-600 text-white">
             <Filter className="w-4 h-4 mr-2" />
             Filter
           </Button>
@@ -172,9 +172,9 @@ export default function IntelligencePage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-muted-foreground tracking-wider">CRITICAL THREATS</p>
-                <p className="text-2xl font-bold text-red-500 font-mono">12</p>
+                <p className="text-2xl font-bold text-status-error font-mono">12</p>
               </div>
-              <AlertTriangle className="w-8 h-8 text-red-500" />
+              <AlertTriangle className="w-8 h-8 text-status-error" />
             </div>
           </CardContent>
         </Card>
@@ -202,7 +202,7 @@ export default function IntelligencePage() {
             {filteredReports.map((report) => (
               <div
                 key={report.id}
-                className="border border-border dark:border-neutral-700 rounded p-4 hover:border-orange-500/50 transition-colors cursor-pointer"
+                className="border border-border dark:border-neutral-700 rounded p-4 hover:border-primary-500/50 transition-colors cursor-pointer"
                 onClick={() => setSelectedReport(report)}
               >
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
@@ -334,9 +334,9 @@ export default function IntelligencePage() {
                         <div
                           className={`h-2 rounded-full transition-all duration-300 ${
                             selectedReport.threat === "critical"
-                              ? "bg-red-500 w-full"
+                              ? "bg-status-error w-full"
                               : selectedReport.threat === "high"
-                                ? "bg-orange-500 w-3/4"
+                                ? "bg-primary-500 w-3/4"
                                 : selectedReport.threat === "medium"
                                   ? "bg-neutral-400 w-1/2"
                                   : "bg-foreground w-1/4"
@@ -354,7 +354,7 @@ export default function IntelligencePage() {
               </div>
 
               <div className="flex gap-2 pt-4 border-t border-border dark:border-neutral-700">
-                <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+                <Button className="bg-primary-500 hover:bg-primary-600 text-white">
                   <Eye className="w-4 h-4 mr-2" />
                   View Full Report
                 </Button>

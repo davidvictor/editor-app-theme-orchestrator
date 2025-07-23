@@ -43,10 +43,10 @@ export default function CommandCenterPage() {
                     <div
                       className={`w-2 h-2 rounded-full ${
                         agent.status === "active"
-                          ? "bg-green-500"
+                          ? "bg-status-success"
                           : agent.status === "standby"
                             ? "bg-neutral-500"
-                            : "bg-red-500"
+                            : "bg-status-error"
                       }`}
                     ></div>
                     <div>
@@ -106,16 +106,16 @@ export default function CommandCenterPage() {
               ].map((log, index) => (
                 <div
                   key={index}
-                  className="text-xs border-l-2 border-orange-500 pl-3 hover:bg-accent dark:hover:bg-neutral-800 p-2 rounded transition-colors"
+                  className="text-xs border-l-2 border-primary-500 pl-3 hover:bg-accent dark:hover:bg-neutral-800 p-2 rounded transition-colors"
                 >
                   <div className="text-muted-foreground font-mono">{log.time}</div>
                   <div className="text-foreground">
-                    Agent <span className="text-orange-500 font-mono">{log.agent}</span> {log.action}{" "}
+                    Agent <span className="text-primary-500 font-mono">{log.agent}</span> {log.action}{" "}
                     <span className="text-foreground font-mono">{log.location}</span>
                     {log.target && (
                       <span>
                         {" "}
-                        with agent <span className="text-orange-500 font-mono">{log.target}</span>
+                        with agent <span className="text-primary-500 font-mono">{log.target}</span>
                       </span>
                     )}
                   </div>
@@ -152,7 +152,7 @@ export default function CommandCenterPage() {
                 <span># 2025-06-17 14:23 UTC</span>
               </div>
               <div className="text-foreground">{"> [AGT:gh0stfire] ::: INIT >> ^^^ loading secure channel"}</div>
-              <div className="text-orange-500">{"> CH#2 | 1231.9082464.500...xR3"}</div>
+              <div className="text-primary-500">{"> CH#2 | 1231.9082464.500...xR3"}</div>
               <div className="text-foreground">{"> KEY LOCKED"}</div>
               <div className="text-muted-foreground/70">
                 {'> MSG >> "...mission override initiated... awaiting delta node clearance"'}
@@ -182,7 +182,7 @@ export default function CommandCenterPage() {
                 <polyline
                   points="0,120 50,100 100,110 150,90 200,95 250,85 300,100 350,80"
                   fill="none"
-                  stroke="#f97316"
+                  stroke="rgb(249 115 22)"
                   strokeWidth="2"
                 />
                 <polyline
@@ -220,7 +220,7 @@ export default function CommandCenterPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-2 bg-status-success rounded-full"></div>
                   <span className="text-xs text-foreground font-medium">Successful Missions</span>
                 </div>
                 <div className="space-y-2">
@@ -241,8 +241,8 @@ export default function CommandCenterPage() {
 
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  <span className="text-xs text-red-500 font-medium">Failed Missions</span>
+                  <div className="w-2 h-2 bg-status-error rounded-full"></div>
+                  <span className="text-xs text-status-error font-medium">Failed Missions</span>
                 </div>
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs">

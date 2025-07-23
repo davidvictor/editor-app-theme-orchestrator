@@ -24,14 +24,14 @@ export default function TacticalDashboard() {
         <div className="p-4">
           <div className="flex items-center justify-between mb-8">
             <div className={`${sidebarCollapsed ? "hidden" : "block"}`}>
-              <h1 className="text-orange-500 font-bold text-lg tracking-wider">TACTICAL OPS</h1>
+              <h1 className="text-primary-500 font-bold text-lg tracking-wider">TACTICAL OPS</h1>
               <p className="text-muted-foreground text-xs">v2.1.7 CLASSIFIED</p>
             </div>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="text-muted-foreground hover:text-orange-500"
+              className="text-muted-foreground hover:text-primary-500"
             >
               <ChevronRight
                 className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform ${sidebarCollapsed ? "" : "rotate-180"}`}
@@ -53,7 +53,7 @@ export default function TacticalDashboard() {
                 onClick={() => setActiveSection(item.id)}
                 className={`w-full flex items-center gap-3 p-3 rounded transition-colors ${
                   activeSection === item.id
-                    ? "bg-orange-500 text-white"
+                    ? "bg-primary-500 text-white"
                     : "text-muted-foreground hover:text-foreground hover:bg-accent dark:hover:bg-neutral-800"
                 }`}
               >
@@ -90,15 +90,14 @@ export default function TacticalDashboard() {
         <div className="h-16 bg-card dark:bg-neutral-800 border-b border-border dark:border-neutral-700 flex items-center justify-between px-6">
           <div className="flex items-center gap-4">
             <div className="text-sm text-muted-foreground">
-              TACTICAL COMMAND / <span className="text-orange-500">OVERVIEW</span>
+              TACTICAL COMMAND / <span className="text-primary-500">OVERVIEW</span>
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <div className="text-xs text-muted-foreground">LAST UPDATE: 05/06/2025 20:00 UTC</div>
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-orange-500">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary-500">
               <Bell className="w-4 h-4" />
             </Button>
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-orange-500">
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary-500">
               <RefreshCw className="w-4 h-4" />
             </Button>
             <ThemeToggle />

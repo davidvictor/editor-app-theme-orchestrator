@@ -100,8 +100,8 @@ export default function AgentNetworkPage() {
           <p className="text-sm text-muted-foreground">Manage and monitor field operatives</p>
         </div>
         <div className="flex gap-2">
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white">Deploy Agent</Button>
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white">
+          <Button className="bg-primary-500 hover:bg-primary-600 text-white">Deploy Agent</Button>
+          <Button className="bg-primary-500 hover:bg-primary-600 text-white">
             <Filter className="w-4 h-4 mr-2" />
             Filter
           </Button>
@@ -141,9 +141,9 @@ export default function AgentNetworkPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-muted-foreground tracking-wider">COMPROMISED</p>
-                <p className="text-2xl font-bold text-red-500 font-mono">3</p>
+                <p className="text-2xl font-bold text-status-error font-mono">3</p>
               </div>
-              <Shield className="w-8 h-8 text-red-500" />
+              <Shield className="w-8 h-8 text-status-error" />
             </div>
           </CardContent>
         </Card>
@@ -153,9 +153,9 @@ export default function AgentNetworkPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-xs text-muted-foreground tracking-wider">IN TRAINING</p>
-                <p className="text-2xl font-bold text-orange-500 font-mono">23</p>
+                <p className="text-2xl font-bold text-primary-500 font-mono">23</p>
               </div>
-              <Shield className="w-8 h-8 text-orange-500" />
+              <Shield className="w-8 h-8 text-primary-500" />
             </div>
           </CardContent>
         </Card>
@@ -197,12 +197,12 @@ export default function AgentNetworkPage() {
                         <div
                           className={`w-2 h-2 rounded-full ${
                             agent.status === "active"
-                              ? "bg-green-500"
+                              ? "bg-status-success"
                               : agent.status === "standby"
-                                ? "bg-neutral-500"
+                                ? "bg-status-warning"
                                 : agent.status === "training"
-                                  ? "bg-orange-500"
-                                  : "bg-red-500"
+                                  ? "bg-status-info"
+                                  : "bg-status-error"
                           }`}
                         ></div>
                         <span className="text-xs text-muted-foreground uppercase tracking-wider">{agent.status}</span>
@@ -225,19 +225,19 @@ export default function AgentNetworkPage() {
                       <span
                         className={`text-xs px-2 py-1 rounded uppercase tracking-wider ${
                           agent.risk === "critical"
-                            ? "bg-red-500/20 text-red-500"
+                            ? "bg-status-error/20 text-status-error"
                             : agent.risk === "high"
-                              ? "bg-orange-500/20 text-orange-500"
+                              ? "bg-status-warning/20 text-status-warning"
                               : agent.risk === "medium"
-                                ? "bg-neutral-500/20 text-muted-foreground"
-                                : "bg-green-500/20 text-green-500"
+                                ? "bg-status-neutral/20 text-status-neutral"
+                                : "bg-status-success/20 text-status-success"
                         }`}
                       >
                         {agent.risk}
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-orange-500">
+                      <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-primary-500">
                         <MoreHorizontal className="w-4 h-4" />
                       </Button>
                     </td>
@@ -274,12 +274,12 @@ export default function AgentNetworkPage() {
                     <div
                       className={`w-2 h-2 rounded-full ${
                         selectedAgent.status === "active"
-                          ? "bg-green-500"
+                          ? "bg-status-success"
                           : selectedAgent.status === "standby"
-                            ? "bg-neutral-500"
+                            ? "bg-status-warning"
                             : selectedAgent.status === "training"
-                              ? "bg-orange-500"
-                              : "bg-red-500"
+                              ? "bg-status-info"
+                              : "bg-status-error"
                       }`}
                     ></div>
                     <span className="text-sm text-foreground uppercase tracking-wider">{selectedAgent.status}</span>
@@ -298,12 +298,12 @@ export default function AgentNetworkPage() {
                   <span
                     className={`text-xs px-2 py-1 rounded uppercase tracking-wider ${
                       selectedAgent.risk === "critical"
-                        ? "bg-red-500/20 text-red-500"
+                        ? "bg-status-error/20 text-status-error"
                         : selectedAgent.risk === "high"
-                          ? "bg-orange-500/20 text-orange-500"
+                          ? "bg-status-warning/20 text-status-warning"
                           : selectedAgent.risk === "medium"
-                            ? "bg-neutral-500/20 text-muted-foreground"
-                            : "bg-green-500/20 text-green-500"
+                            ? "bg-status-neutral/20 text-status-neutral"
+                            : "bg-status-success/20 text-status-success"
                     }`}
                   >
                     {selectedAgent.risk}
@@ -311,7 +311,7 @@ export default function AgentNetworkPage() {
                 </div>
               </div>
               <div className="flex gap-2 pt-4">
-                <Button className="bg-orange-500 hover:bg-orange-600 text-white">Assign Mission</Button>
+                <Button className="bg-primary-500 hover:bg-primary-600 text-white">Assign Mission</Button>
                 <Button
                   variant="outline"
                   className="border-border dark:border-neutral-700 text-muted-foreground hover:bg-muted dark:hover:bg-neutral-800 hover:text-muted-foreground bg-transparent"
