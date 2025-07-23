@@ -287,7 +287,7 @@ export const extractThemeColors = async (
     
     if (!themeData) {
       console.warn(`⚠️ Could not extract theme data for "${themeName}", using defaults`)
-      return getDefaultColors(isBuiltIn, themeName)
+      return getDefaultColors()
     }
     
     console.log('Theme data structure:', {
@@ -326,11 +326,11 @@ export const extractThemeColors = async (
       // Standard theme with colors object
       background = ensureHash(
         themeData.colors?.['editor.background'],
-        themeData.base === 'vs' ? '#ffffff' : '#1e1e1e'
+        '#1e1e1e' // Default dark background
       )
       foreground = ensureHash(
         themeData.colors?.['editor.foreground'],
-        themeData.base === 'vs' ? '#000000' : '#cccccc'
+        '#cccccc' // Default dark foreground
       )
     }
     
@@ -459,17 +459,15 @@ export const extractThemeColors = async (
     return colors
   } catch (error) {
     console.error('❌ Error extracting theme colors:', error)
-    return getDefaultColors(passedIsBuiltIn ?? isBuiltInTheme(themeName), themeName)
+    return getDefaultColors()
   }
 }
 
-// Default colors fallback with theme awareness
-const getDefaultColors = (isBuiltIn: boolean = false, themeName: string = ''): ExtractedThemeColors => {
-  // Provide sensible defaults based on theme type
-  const isLightTheme = themeName.toLowerCase().includes('light') || themeName === 'vs'
-  const isDarkTheme = !isLightTheme
-  
-  return isDarkTheme ? {
+// Default colors fallback - always return dark defaults and let actual theme override
+const getDefaultColors = (): ExtractedThemeColors => {
+  // Always return dark theme defaults as a base
+  // The actual theme colors will override these
+  return {
     // Dark theme defaults
     background: '#1a1a1a',
     foreground: '#f8f8f2',
@@ -495,36 +493,6 @@ const getDefaultColors = (isBuiltIn: boolean = false, themeName: string = ''): E
     warning: '#ffcc00',
     success: '#89d185',
     info: '#4ec9b0',
-    badgeBackground: '#f97316',
-    badgeForeground: '#ffffff',
-    buttonBackground: '#f97316',
-    buttonForeground: '#ffffff'
-  } : {
-    // Light theme defaults
-    background: '#ffffff',
-    foreground: '#000000',
-    sidebarBackground: '#f3f3f3',
-    sidebarForeground: '#000000',
-    activityBarBackground: '#2c2c2c',
-    activityBarForeground: '#ffffff',
-    panelBackground: '#f3f3f3',
-    editorGroupBackground: '#ffffff',
-    tabActiveBackground: '#ffffff',
-    tabInactiveBackground: '#ececec',
-    inputBackground: '#ffffff',
-    inputForeground: '#000000',
-    inputBorder: '#cecece',
-    dropdownBackground: '#ffffff',
-    listActiveBackground: '#0060c0',
-    listHoverBackground: '#e8e8e8',
-    border: '#e5e5e5',
-    contrastBorder: '#6fc3df',
-    primary: '#f97316',
-    selection: '#add6ff',
-    error: '#d60a0a',
-    warning: '#ff8c00',
-    success: '#4b8b3b',
-    info: '#007acc',
     badgeBackground: '#f97316',
     badgeForeground: '#ffffff',
     buttonBackground: '#f97316',
@@ -623,14 +591,14 @@ export const applyThemeColors = (colors: ExtractedThemeColors) => {
 }
 
 // Save theme colors to localStorage
-export const saveThemeColors = (theme: 'light' | 'dark', colors: ExtractedThemeColors) => {
-  localStorage.setItem(`monaco-theme-colors-${theme}`, JSON.stringify(colors))
+export const saveThemeColors = (themeName: string, colors: ExtractedThemeColors) => {
+  localStorage.setItem(`monaco-theme-colors-${themeName}`, JSON.stringify(colors))
 }
 
 // Load theme colors from localStorage
-export const loadThemeColors = (theme: 'light' | 'dark'): ExtractedThemeColors | null => {
+export const loadThemeColors = (themeName: string): ExtractedThemeColors | null => {
   try {
-    const saved = localStorage.getItem(`monaco-theme-colors-${theme}`)
+    const saved = localStorage.getItem(`monaco-theme-colors-${themeName}`)
     if (saved) {
       return JSON.parse(saved)
     }
@@ -638,4 +606,15 @@ export const loadThemeColors = (theme: 'light' | 'dark'): ExtractedThemeColors |
     console.error('Failed to load saved theme colors:', error)
   }
   return null
+}
+
+// Clear old theme color caches
+export const clearOldThemeColorCaches = () => {
+  try {
+    // Remove old mode-based caches
+    localStorage.removeItem('monaco-theme-colors-light')
+    localStorage.removeItem('monaco-theme-colors-dark')
+  } catch (error) {
+    console.error('Failed to clear old theme caches:', error)
+  }
 }

@@ -109,11 +109,11 @@ export default function SystemsPage() {
       case "warning":
         return "bg-status-warning/20 text-status-warning"
       case "maintenance":
-        return "bg-neutral-500/20 text-muted-foreground"
+        return "bg-muted/20 text-muted-foreground"
       case "offline":
         return "bg-status-error/20 text-status-error"
       default:
-        return "bg-neutral-500/20 text-muted-foreground"
+        return "bg-muted/20 text-muted-foreground"
     }
   }
 
@@ -174,7 +174,7 @@ export default function SystemsPage() {
 
       {/* System Overview Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -186,7 +186,7 @@ export default function SystemsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -198,7 +198,7 @@ export default function SystemsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -210,7 +210,7 @@ export default function SystemsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -228,7 +228,7 @@ export default function SystemsPage() {
         {systems.map((system) => (
           <Card
             key={system.id}
-            className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700 hover:border-primary-500/50 transition-colors cursor-pointer"
+            className="bg-card border-border hover:border-primary-500/50 transition-colors cursor-pointer"
             onClick={() => setSelectedSystem(system)}
           >
             <CardHeader className="pb-3">
@@ -257,7 +257,7 @@ export default function SystemsPage() {
                 <div>
                   <div className="text-muted-foreground mb-1">CPU</div>
                   <div className="text-foreground font-mono">{system.cpu}%</div>
-                  <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-1 mt-1">
+                  <div className="w-full bg-muted rounded-full h-1 mt-1">
                     <div
                       className="bg-primary-500 h-1 rounded-full transition-all duration-300"
                       style={{ width: `${system.cpu}%` }}
@@ -267,7 +267,7 @@ export default function SystemsPage() {
                 <div>
                   <div className="text-muted-foreground mb-1">MEMORY</div>
                   <div className="text-foreground font-mono">{system.memory}%</div>
-                  <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-1 mt-1">
+                  <div className="w-full bg-muted rounded-full h-1 mt-1">
                     <div
                       className="bg-primary-500 h-1 rounded-full transition-all duration-300"
                       style={{ width: `${system.memory}%` }}
@@ -277,7 +277,7 @@ export default function SystemsPage() {
                 <div>
                   <div className="text-muted-foreground mb-1">STORAGE</div>
                   <div className="text-foreground font-mono">{system.storage}%</div>
-                  <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-1 mt-1">
+                  <div className="w-full bg-muted rounded-full h-1 mt-1">
                     <div
                       className="bg-primary-500 h-1 rounded-full transition-all duration-300"
                       style={{ width: `${system.storage}%` }}
@@ -304,7 +304,7 @@ export default function SystemsPage() {
       {/* System Detail Modal */}
       {selectedSystem && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+          <Card className="bg-card border-border w-full max-w-4xl max-h-[90vh] overflow-y-auto">
             <CardHeader className="flex flex-row items-center justify-between">
               <div className="flex items-center gap-3">
                 {getSystemIcon(selectedSystem.type)}
@@ -370,7 +370,7 @@ export default function SystemsPage() {
                           <span className="text-muted-foreground">CPU Usage</span>
                           <span className="text-foreground font-mono">{selectedSystem.cpu}%</span>
                         </div>
-                        <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-2">
+                        <div className="w-full bg-muted rounded-full h-2">
                           <div
                             className="bg-primary-500 h-2 rounded-full transition-all duration-300"
                             style={{ width: `${selectedSystem.cpu}%` }}
@@ -383,7 +383,7 @@ export default function SystemsPage() {
                           <span className="text-muted-foreground">Memory Usage</span>
                           <span className="text-foreground font-mono">{selectedSystem.memory}%</span>
                         </div>
-                        <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-2">
+                        <div className="w-full bg-muted rounded-full h-2">
                           <div
                             className="bg-primary-500 h-2 rounded-full transition-all duration-300"
                             style={{ width: `${selectedSystem.memory}%` }}
@@ -396,7 +396,7 @@ export default function SystemsPage() {
                           <span className="text-muted-foreground">Storage Usage</span>
                           <span className="text-foreground font-mono">{selectedSystem.storage}%</span>
                         </div>
-                        <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-2">
+                        <div className="w-full bg-muted rounded-full h-2">
                           <div
                             className="bg-primary-500 h-2 rounded-full transition-all duration-300"
                             style={{ width: `${selectedSystem.storage}%` }}
@@ -408,17 +408,17 @@ export default function SystemsPage() {
                 </div>
               </div>
 
-              <div className="flex gap-2 pt-4 border-t border-border dark:border-neutral-700">
+              <div className="flex gap-2 pt-4 border-t border-border">
                 <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">Restart System</Button>
                 <Button
                   variant="outline"
-                  className="border-border dark:border-neutral-700 text-muted-foreground hover:bg-muted dark:hover:bg-neutral-800 hover:text-muted-foreground bg-transparent"
+                  className="border-border text-muted-foreground hover:bg-muted hover:text-muted-foreground bg-transparent"
                 >
                   View Logs
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-border dark:border-neutral-700 text-muted-foreground hover:bg-muted dark:hover:bg-neutral-800 hover:text-muted-foreground bg-transparent"
+                  className="border-border text-muted-foreground hover:bg-muted hover:text-muted-foreground bg-transparent"
                 >
                   Schedule Maintenance
                 </Button>

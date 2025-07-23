@@ -81,7 +81,7 @@ export default function IntelligencePage() {
       case "SECRET":
         return "bg-primary-500/20 text-primary-500"
       case "CONFIDENTIAL":
-        return "bg-neutral-500/20 text-muted-foreground"
+        return "bg-muted/20 text-muted-foreground"
       default:
         return "bg-white/20 text-foreground"
     }
@@ -94,11 +94,11 @@ export default function IntelligencePage() {
       case "high":
         return "bg-primary-500/20 text-primary-500"
       case "medium":
-        return "bg-neutral-500/20 text-muted-foreground"
+        return "bg-muted/20 text-muted-foreground"
       case "low":
         return "bg-white/20 text-foreground"
       default:
-        return "bg-neutral-500/20 text-muted-foreground"
+        return "bg-muted/20 text-muted-foreground"
     }
   }
 
@@ -111,7 +111,7 @@ export default function IntelligencePage() {
       case "active":
         return "bg-white/20 text-foreground"
       default:
-        return "bg-neutral-500/20 text-muted-foreground"
+        return "bg-muted/20 text-muted-foreground"
     }
   }
 
@@ -141,7 +141,7 @@ export default function IntelligencePage() {
 
       {/* Stats and Search */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
-        <Card className="lg:col-span-2 bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="lg:col-span-2 bg-card border-border">
           <CardContent className="p-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -149,13 +149,13 @@ export default function IntelligencePage() {
                 placeholder="Search intelligence reports..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-muted dark:bg-neutral-800 border-border dark:border-neutral-600 text-foreground placeholder-muted-foreground"
+                className="pl-10 bg-muted border-border text-foreground placeholder-muted-foreground"
               />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -167,7 +167,7 @@ export default function IntelligencePage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -179,7 +179,7 @@ export default function IntelligencePage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -193,7 +193,7 @@ export default function IntelligencePage() {
       </div>
 
       {/* Intelligence Reports */}
-      <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+      <Card className="bg-card border-border">
         <CardHeader>
           <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">INTELLIGENCE REPORTS</CardTitle>
         </CardHeader>
@@ -202,7 +202,7 @@ export default function IntelligencePage() {
             {filteredReports.map((report) => (
               <div
                 key={report.id}
-                className="border border-border dark:border-neutral-700 rounded p-4 hover:border-primary-500/50 transition-colors cursor-pointer"
+                className="border border-border rounded p-4 hover:border-primary-500/50 transition-colors cursor-pointer"
                 onClick={() => setSelectedReport(report)}
               >
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
@@ -219,7 +219,7 @@ export default function IntelligencePage() {
 
                     <div className="flex flex-wrap gap-2 ml-8">
                       {report.tags.map((tag) => (
-                        <Badge key={tag} className="bg-muted dark:bg-neutral-800 text-muted-foreground text-xs">
+                        <Badge key={tag} className="bg-muted text-muted-foreground text-xs">
                           {tag}
                         </Badge>
                       ))}
@@ -255,7 +255,7 @@ export default function IntelligencePage() {
       {/* Report Detail Modal */}
       {selectedReport && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+          <Card className="bg-card border-border w-full max-w-4xl max-h-[90vh] overflow-y-auto">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
                 <CardTitle className="text-xl font-bold text-foreground tracking-wider">{selectedReport.title}</CardTitle>
@@ -314,7 +314,7 @@ export default function IntelligencePage() {
                     <h3 className="text-sm font-medium text-muted-foreground tracking-wider mb-2">TAGS</h3>
                     <div className="flex flex-wrap gap-2">
                       {selectedReport.tags.map((tag) => (
-                        <Badge key={tag} className="bg-muted dark:bg-neutral-800 text-muted-foreground">
+                        <Badge key={tag} className="bg-muted text-muted-foreground">
                           {tag}
                         </Badge>
                       ))}
@@ -330,7 +330,7 @@ export default function IntelligencePage() {
                           {selectedReport.threat.toUpperCase()}
                         </Badge>
                       </div>
-                      <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-2">
+                      <div className="w-full bg-muted rounded-full h-2">
                         <div
                           className={`h-2 rounded-full transition-all duration-300 ${
                             selectedReport.threat === "critical"
@@ -338,7 +338,7 @@ export default function IntelligencePage() {
                               : selectedReport.threat === "high"
                                 ? "bg-primary-500 w-3/4"
                                 : selectedReport.threat === "medium"
-                                  ? "bg-neutral-400 w-1/2"
+                                  ? "bg-muted w-1/2"
                                   : "bg-foreground w-1/4"
                           }`}
                         ></div>
@@ -353,21 +353,21 @@ export default function IntelligencePage() {
                 <p className="text-sm text-muted-foreground leading-relaxed">{selectedReport.summary}</p>
               </div>
 
-              <div className="flex gap-2 pt-4 border-t border-border dark:border-neutral-700">
+              <div className="flex gap-2 pt-4 border-t border-border">
                 <Button className="bg-primary-500 hover:bg-primary-600 text-white">
                   <Eye className="w-4 h-4 mr-2" />
                   View Full Report
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-border dark:border-neutral-700 text-muted-foreground hover:bg-muted dark:hover:bg-neutral-800 hover:text-muted-foreground bg-transparent"
+                  className="border-border text-muted-foreground hover:bg-muted hover:text-muted-foreground bg-transparent"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Download
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-border dark:border-neutral-700 text-muted-foreground hover:bg-muted dark:hover:bg-neutral-800 hover:text-muted-foreground bg-transparent"
+                  className="border-border text-muted-foreground hover:bg-muted hover:text-muted-foreground bg-transparent"
                 >
                   Share Intel
                 </Button>

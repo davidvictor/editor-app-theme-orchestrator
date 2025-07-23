@@ -88,7 +88,7 @@ export default function OperationsPage() {
       case "compromised":
         return "bg-status-error/20 text-status-error"
       default:
-        return "bg-neutral-500/20 text-muted-foreground"
+        return "bg-muted/20 text-muted-foreground"
     }
   }
 
@@ -99,11 +99,11 @@ export default function OperationsPage() {
       case "high":
         return "bg-primary-500/20 text-primary-500"
       case "medium":
-        return "bg-neutral-500/20 text-muted-foreground"
+        return "bg-muted/20 text-muted-foreground"
       case "low":
         return "bg-status-success/20 text-status-success"
       default:
-        return "bg-neutral-500/20 text-muted-foreground"
+        return "bg-muted/20 text-muted-foreground"
     }
   }
 
@@ -138,7 +138,7 @@ export default function OperationsPage() {
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -150,7 +150,7 @@ export default function OperationsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -162,7 +162,7 @@ export default function OperationsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -174,7 +174,7 @@ export default function OperationsPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -192,7 +192,7 @@ export default function OperationsPage() {
         {operations.map((operation) => (
           <Card
             key={operation.id}
-            className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700 hover:border-primary-500/50 transition-colors cursor-pointer"
+            className="bg-card border-border hover:border-primary-500/50 transition-colors cursor-pointer"
             onClick={() => setSelectedOperation(operation)}
           >
             <CardHeader className="pb-3">
@@ -232,7 +232,7 @@ export default function OperationsPage() {
                   <span className="text-muted-foreground">Progress</span>
                   <span className="text-foreground font-mono">{operation.progress}%</span>
                 </div>
-                <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-2">
+                <div className="w-full bg-muted rounded-full h-2">
                   <div
                     className="bg-primary-500 h-2 rounded-full transition-all duration-300"
                     style={{ width: `${operation.progress}%` }}
@@ -247,7 +247,7 @@ export default function OperationsPage() {
       {/* Operation Detail Modal */}
       {selectedOperation && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+          <Card className="bg-card border-border w-full max-w-4xl max-h-[90vh] overflow-y-auto">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
                 <CardTitle className="text-xl font-bold text-foreground tracking-wider">{selectedOperation.name}</CardTitle>
@@ -307,7 +307,7 @@ export default function OperationsPage() {
                         <span className="text-muted-foreground">Completion</span>
                         <span className="text-foreground font-mono">{selectedOperation.progress}%</span>
                       </div>
-                      <div className="w-full bg-muted dark:bg-neutral-800 rounded-full h-3">
+                      <div className="w-full bg-muted rounded-full h-3">
                         <div
                           className="bg-primary-500 h-3 rounded-full transition-all duration-300"
                           style={{ width: `${selectedOperation.progress}%` }}
@@ -335,17 +335,17 @@ export default function OperationsPage() {
                 <p className="text-sm text-muted-foreground">{selectedOperation.description}</p>
               </div>
 
-              <div className="flex gap-2 pt-4 border-t border-border dark:border-neutral-700">
+              <div className="flex gap-2 pt-4 border-t border-border">
                 <Button className="bg-primary-500 hover:bg-primary-600 text-foreground">Update Status</Button>
                 <Button
                   variant="outline"
-                  className="border-border dark:border-neutral-700 text-muted-foreground hover:bg-muted dark:hover:bg-neutral-800 hover:text-muted-foreground bg-transparent"
+                  className="border-border text-muted-foreground hover:bg-muted hover:text-muted-foreground bg-transparent"
                 >
                   View Reports
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-border dark:border-neutral-700 text-muted-foreground hover:bg-muted dark:hover:bg-neutral-800 hover:text-muted-foreground bg-transparent"
+                  className="border-border text-muted-foreground hover:bg-muted hover:text-muted-foreground bg-transparent"
                 >
                   Assign Agents
                 </Button>

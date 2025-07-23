@@ -8,7 +8,7 @@ export default function CommandCenterPage() {
       {/* Main Dashboard Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Agent Status Overview */}
-        <Card className="lg:col-span-4 bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="lg:col-span-4 bg-card border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">AGENT ALLOCATION</CardTitle>
           </CardHeader>
@@ -27,7 +27,6 @@ export default function CommandCenterPage() {
                 <div className="text-xs text-muted-foreground">Training</div>
               </div>
             </div>
-
             <div className="space-y-2">
               {[
                 { id: "G-078W", name: "VENGEFUL SPIRIT", status: "active" },
@@ -37,7 +36,7 @@ export default function CommandCenterPage() {
               ].map((agent) => (
                 <div
                   key={agent.id}
-                  className="flex items-center justify-between p-2 bg-muted dark:bg-neutral-800 rounded hover:bg-accent dark:hover:bg-neutral-700 transition-colors cursor-pointer"
+                  className="flex items-center justify-between p-2 bg-muted rounded hover:bg-accent transition-colors cursor-pointer"
                 >
                   <div className="flex items-center gap-3">
                     <div
@@ -45,8 +44,8 @@ export default function CommandCenterPage() {
                         agent.status === "active"
                           ? "bg-status-success"
                           : agent.status === "standby"
-                            ? "bg-neutral-500"
-                            : "bg-status-error"
+                          ? "bg-status-warning"
+                          : "bg-status-error"
                       }`}
                     ></div>
                     <div>
@@ -61,7 +60,7 @@ export default function CommandCenterPage() {
         </Card>
 
         {/* Activity Log */}
-        <Card className="lg:col-span-4 bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="lg:col-span-4 bg-card border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">ACTIVITY LOG</CardTitle>
           </CardHeader>
@@ -106,7 +105,7 @@ export default function CommandCenterPage() {
               ].map((log, index) => (
                 <div
                   key={index}
-                  className="text-xs border-l-2 border-primary-500 pl-3 hover:bg-accent dark:hover:bg-neutral-800 p-2 rounded transition-colors"
+                  className="text-xs border-l-2 border-primary-500 pl-3 hover:bg-accent p-2 rounded transition-colors"
                 >
                   <div className="text-muted-foreground font-mono">{log.time}</div>
                   <div className="text-foreground">
@@ -126,7 +125,7 @@ export default function CommandCenterPage() {
         </Card>
 
         {/* Encrypted Chat Activity */}
-        <Card className="lg:col-span-4 bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="lg:col-span-4 bg-card border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">
               ENCRYPTED CHAT ACTIVITY
@@ -146,7 +145,6 @@ export default function CommandCenterPage() {
                 <div className="w-px h-full bg-foreground opacity-30"></div>
               </div>
             </div>
-
             <div className="text-xs text-muted-foreground space-y-1 w-full font-mono">
               <div className="flex justify-between">
                 <span># 2025-06-17 14:23 UTC</span>
@@ -162,7 +160,7 @@ export default function CommandCenterPage() {
         </Card>
 
         {/* Mission Activity Chart */}
-        <Card className="lg:col-span-8 bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="lg:col-span-8 bg-card border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">
               MISSION ACTIVITY OVERVIEW
@@ -173,16 +171,15 @@ export default function CommandCenterPage() {
               {/* Chart Grid */}
               <div className="absolute inset-0 grid grid-cols-8 grid-rows-6 opacity-20">
                 {Array.from({ length: 48 }).map((_, i) => (
-                  <div key={i} className="border border-border dark:border-neutral-700"></div>
+                  <div key={i} className="border border-border"></div>
                 ))}
               </div>
-
               {/* Chart Line */}
               <svg className="absolute inset-0 w-full h-full">
                 <polyline
                   points="0,120 50,100 100,110 150,90 200,95 250,85 300,100 350,80"
                   fill="none"
-                  stroke="rgb(249 115 22)"
+                  stroke="hsl(var(--primary))"
                   strokeWidth="2"
                 />
                 <polyline
@@ -193,7 +190,6 @@ export default function CommandCenterPage() {
                   strokeDasharray="5,5"
                 />
               </svg>
-
               {/* Y-axis labels */}
               <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-muted-foreground -ml-5 font-mono">
                 <span>500</span>
@@ -201,7 +197,6 @@ export default function CommandCenterPage() {
                 <span>300</span>
                 <span>200</span>
               </div>
-
               {/* X-axis labels */}
               <div className="absolute bottom-0 left-0 w-full flex justify-between text-xs text-muted-foreground -mb-6 font-mono">
                 <span>Jan 28, 2025</span>
@@ -212,7 +207,7 @@ export default function CommandCenterPage() {
         </Card>
 
         {/* Mission Information */}
-        <Card className="lg:col-span-4 bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="lg:col-span-4 bg-card border-border">
           <CardHeader className="pb-3">
             <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">MISSION INFORMATION</CardTitle>
           </CardHeader>
@@ -238,7 +233,6 @@ export default function CommandCenterPage() {
                   </div>
                 </div>
               </div>
-
               <div>
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-2 h-2 bg-status-error rounded-full"></div>

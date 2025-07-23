@@ -1,28 +1,21 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import { useTheme } from "next-themes"
 import Editor, { Monaco } from "@monaco-editor/react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
-import { AlertCircle } from "lucide-react"
+import { AlertCircle, RotateCcw } from "lucide-react"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { STORAGE_KEYS, BUILT_IN_THEMES, MONACO_THEMES, DEFAULT_CONFIG, JAVASCRIPT_TEMPLATE, SQL_TEMPLATE } from "@/lib/hacker-portal-config"
-import { extractThemeColors, applyThemeColors, saveThemeColors, loadThemeColors } from "@/lib/theme-sync"
+import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast"
+import { STORAGE_KEYS, BUILT_IN_THEMES, DEFAULT_CONFIG, JAVASCRIPT_TEMPLATE, SQL_TEMPLATE } from "@/lib/hacker-portal-config"
+import { clearOldThemeColorCaches } from "@/lib/theme-sync"
+import { themeApplication } from "@/lib/theme-application"
+import { MonacoThemeSelector } from "@/components/monaco-theme-selector"
+import '@/lib/reset-themes' // Make resetMonacoThemes available globally
 
-// Transform string arrays to objects with value and label
-const BUILT_IN_THEME_OPTIONS = [
-  { value: "vs", label: "Visual Studio" },
-  { value: "vs-dark", label: "Visual Studio Dark" },
-  { value: "hc-black", label: "High Contrast Black" },
-  { value: "hc-light", label: "High Contrast Light" }
-]
-
-const MONACO_THEME_OPTIONS = MONACO_THEMES.map(theme => ({ value: theme, label: theme }))
-
-const ALL_THEMES = [...BUILT_IN_THEME_OPTIONS, ...MONACO_THEME_OPTIONS]
 
 // Templates are now imported from lib/hacker-portal-config
 
@@ -47,11 +40,29 @@ const safeSetItem = (key: string, value: string) => {
   }
 }
 
-export default function HackerPortalPage() {
+interface HackerPortalPageProps {
+  monacoTheme?: {
+    lightTheme: string
+    darkTheme: string
+    currentTheme: string
+    setLightTheme: (theme: string) => void
+    setDarkTheme: (theme: string) => void
+  }
+}
+
+export default function HackerPortalPage({ monacoTheme }: HackerPortalPageProps) {
   const { theme } = useTheme()
+  const { toast } = useToast()
   const [mounted, setMounted] = useState(false)
-  const [lightTheme, setLightTheme] = useState("vs")
-  const [darkTheme, setDarkTheme] = useState("vs-dark")
+  
+  // Fallback values for when component is pre-rendered
+  const [localLightTheme, setLocalLightTheme] = useState('vs')
+  const [localDarkTheme, setLocalDarkTheme] = useState('vs-dark')
+  
+  // Use monacoTheme if provided, otherwise use local state
+  const lightTheme = monacoTheme?.lightTheme ?? localLightTheme
+  const darkTheme = monacoTheme?.darkTheme ?? localDarkTheme
+  const currentTheme = monacoTheme?.currentTheme ?? (theme === "dark" ? darkTheme : lightTheme)
   const [editorOptions, setEditorOptions] = useState<any>(DEFAULT_CONFIG)
   const [activeTab, setActiveTab] = useState("javascript")
   const [javascriptCode, setJavascriptCode] = useState(JAVASCRIPT_TEMPLATE)
@@ -65,8 +76,15 @@ export default function HackerPortalPage() {
   // Load from localStorage on mount
   useEffect(() => {
     setMounted(true)
-    setLightTheme(safeGetItem(STORAGE_KEYS.LIGHT_THEME, "vs"))
-    setDarkTheme(safeGetItem(STORAGE_KEYS.DARK_THEME, "vs-dark"))
+    
+    // Clear old theme color caches on mount
+    clearOldThemeColorCaches()
+    
+    // Load local theme values if monacoTheme is not provided
+    if (!monacoTheme) {
+      setLocalLightTheme(safeGetItem(STORAGE_KEYS.LIGHT_THEME, "vs"))
+      setLocalDarkTheme(safeGetItem(STORAGE_KEYS.DARK_THEME, "vs-dark"))
+    }
     
     const savedConfig = safeGetItem(STORAGE_KEYS.CONFIG)
     if (savedConfig) {
@@ -87,148 +105,112 @@ export default function HackerPortalPage() {
     setSqlCode(savedSqlCode)
   }, [])
   
-  // Load saved theme colors on mount
-  useEffect(() => {
-    if (!mounted || !theme) return
-    
-    const savedColors = loadThemeColors(theme as 'light' | 'dark')
-    if (savedColors) {
-      applyThemeColors(savedColors)
-    }
-  }, [mounted, theme])
+  // Remove the theme loading effect - this is now handled by the hook in page.tsx
 
-  // Watch for theme changes and apply the appropriate Monaco theme
-  useEffect(() => {
-    if (!monacoInstance || !mounted) return
-    
-    const themeToApply = theme === "dark" ? darkTheme : lightTheme
-    const themeId = getThemeId(themeToApply)
-    
-    // Load and apply the theme
-    if (BUILT_IN_THEME_OPTIONS.some(t => t.value === themeToApply)) {
-      monacoInstance.editor.setTheme(themeId)
-    } else {
-      loadCustomTheme(themeToApply, monacoInstance).then(loadedThemeId => {
-        if (loadedThemeId) {
-          monacoInstance.editor.setTheme(loadedThemeId)
-        }
-      })
-    }
-  }, [theme, lightTheme, darkTheme, monacoInstance, mounted])
-  
-  // Extract and apply theme colors when theme changes
+  // Apply Monaco theme when editor loads or theme changes
   useEffect(() => {
     if (!monacoInstance || !mounted || !theme) return
     
-    const extractAndApplyColors = async () => {
-      try {
-        const themeToApply = theme === "dark" ? darkTheme : lightTheme
-        const themeId = getThemeId(themeToApply)
-        const isBuiltIn = BUILT_IN_THEME_OPTIONS.some(t => t.value === themeToApply)
+    const applyTheme = async () => {
+      // Ensure we have a valid theme to apply
+      const themeToApply = currentTheme || (theme === 'dark' ? 'vs-dark' : 'vs')
+      
+      // Set Monaco instance in theme application manager
+      themeApplication.setMonacoInstance(monacoInstance)
+      
+      // Load theme into Monaco
+      const themeId = await themeApplication.loadMonacoTheme(themeToApply, monacoInstance)
+      if (themeId) {
+        monacoInstance.editor.setTheme(themeId)
         
-        // Wait longer for custom themes to fully load
-        await new Promise(resolve => setTimeout(resolve, isBuiltIn ? 100 : 500))
-        
-        console.log('Extracting colors for theme:', themeToApply, 'ID:', themeId, 'Built-in:', isBuiltIn)
-        
-        const colors = await extractThemeColors(monacoInstance, themeToApply, isBuiltIn)
-        console.log('Extracted colors:', colors)
-        
-        applyThemeColors(colors)
-        
-        // Save to localStorage
-        saveThemeColors(theme as 'light' | 'dark', colors)
-      } catch (error) {
-        console.error('Failed to extract theme colors:', error)
+        // Extract and apply colors after a delay to ensure theme is loaded
+        setTimeout(async () => {
+          await themeApplication.extractAndApplyTheme(themeToApply)
+        }, BUILT_IN_THEMES.includes(themeToApply) ? 100 : 500)
       }
     }
     
-    extractAndApplyColors()
-  }, [theme, lightTheme, darkTheme, monacoInstance, mounted])
-
-  // Determine current theme
-  const currentTheme = theme === "dark" ? darkTheme : lightTheme
+    applyTheme()
+  }, [currentTheme, monacoInstance, mounted, theme])
   
   // Get the safe theme ID for Monaco
   const getThemeId = (themeName: string) => {
-    if (BUILT_IN_THEME_OPTIONS.some(t => t.value === themeName)) {
+    if (BUILT_IN_THEMES.includes(themeName)) {
       return themeName
     }
     return themeName.replace(/\s+/g, '-').toLowerCase()
   }
   
-  // Function needs to be defined before useEffect that uses it
-  const loadCustomTheme = async (themeName: string, monaco: Monaco) => {
-    // Check if it's a built-in theme first
-    if (BUILT_IN_THEME_OPTIONS.some(t => t.value === themeName)) {
-      return themeName // Built-in theme, no need to load
-    }
-
-    try {
-      // Create a safe theme ID by replacing spaces with hyphens
-      const themeId = themeName.replace(/\s+/g, '-').toLowerCase()
-      const themeData = await import(`monaco-themes/themes/${themeName}.json`)
-      monaco.editor.defineTheme(themeId, themeData)
-      return themeId
-    } catch (error) {
-      console.error("Failed to load theme:", themeName, error)
-      return null
-    }
-  }
 
 
   // Handle theme change
-  const handleThemeChange = async (newTheme: string, isDark: boolean) => {
-    if (!monacoInstance) return
-
-    // Load theme and get the actual theme ID to use
-    const themeIdToUse = await loadCustomTheme(newTheme, monacoInstance)
-    if (!themeIdToUse) return // Failed to load theme
-    
-    if (isDark) {
-      setDarkTheme(newTheme)
-      safeSetItem(STORAGE_KEYS.DARK_THEME, newTheme)
+  const handleLightThemeChange = useCallback((newTheme: string) => {
+    if (monacoTheme) {
+      monacoTheme.setLightTheme(newTheme)
     } else {
-      setLightTheme(newTheme)
+      setLocalLightTheme(newTheme)
       safeSetItem(STORAGE_KEYS.LIGHT_THEME, newTheme)
     }
     
-    // Apply theme if it's the current mode
-    if ((theme === "dark" && isDark) || (theme === "light" && !isDark)) {
-      monacoInstance.editor.setTheme(themeIdToUse)
-      
-      // Extract and apply colors after theme change
-      setTimeout(async () => {
-        const isBuiltIn = BUILT_IN_THEME_OPTIONS.some(t => t.value === newTheme)
-        console.log('Theme changed to:', newTheme, 'Extracting colors...')
-        // Pass the original theme name, not the ID
-        const colors = await extractThemeColors(monacoInstance, newTheme, isBuiltIn)
-        console.log('Colors extracted after theme change:', colors)
-        applyThemeColors(colors)
-        saveThemeColors(theme as 'light' | 'dark', colors)
-      }, 300)
+    // Reset the last applied theme to force re-application
+    themeApplication.resetLastApplied()
+  }, [monacoTheme])
+  
+  const handleDarkThemeChange = useCallback((newTheme: string) => {
+    if (monacoTheme) {
+      monacoTheme.setDarkTheme(newTheme)
+    } else {
+      setLocalDarkTheme(newTheme)
+      safeSetItem(STORAGE_KEYS.DARK_THEME, newTheme)
     }
-  }
+    
+    // Reset the last applied theme to force re-application
+    themeApplication.resetLastApplied()
+  }, [monacoTheme])
 
   // Handle editor mount
   const handleEditorDidMount = (editor: any, monaco: Monaco) => {
     editorRef.current = editor
     setMonacoInstance(monaco)
-    
-    // Load current theme
-    if (currentTheme && !BUILT_IN_THEME_OPTIONS.some(t => t.value === currentTheme)) {
-      loadCustomTheme(currentTheme, monaco).then(themeId => {
-        if (themeId) {
-          monaco.editor.setTheme(themeId)
-        }
-      })
-    }
   }
 
   // Handle config editor mount
   const handleConfigEditorDidMount = (editor: any) => {
     configEditorRef.current = editor
   }
+
+  // Handle reset themes
+  const handleResetThemes = useCallback(() => {
+    // Reset to defaults
+    const defaultLight = 'vs'
+    const defaultDark = 'vs-dark'
+    
+    // Update the state
+    if (monacoTheme) {
+      monacoTheme.setLightTheme(defaultLight)
+      monacoTheme.setDarkTheme(defaultDark)
+    } else {
+      setLocalLightTheme(defaultLight)
+      setLocalDarkTheme(defaultDark)
+      safeSetItem(STORAGE_KEYS.LIGHT_THEME, defaultLight)
+      safeSetItem(STORAGE_KEYS.DARK_THEME, defaultDark)
+    }
+    
+    // Clear all theme color caches
+    themeApplication.resetToDefaults()
+    
+    // Show success toast
+    toast({
+      title: "Themes Reset",
+      description: "Monaco themes have been reset to Visual Studio defaults.",
+    })
+    
+    // Force a re-render by resetting Monaco instance
+    if (monacoInstance) {
+      const themeToApply = theme === 'dark' ? defaultDark : defaultLight
+      monacoInstance.editor.setTheme(themeToApply)
+    }
+  }, [monacoTheme, theme, monacoInstance, toast])
 
   // Handle code change
   const handleCodeChange = (value: string | undefined) => {
@@ -321,48 +303,22 @@ export default function HackerPortalPage() {
                 Current Mode: {theme === "dark" ? "DARK" : "LIGHT"}
               </Label>
             </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="light-theme" className="text-sm text-gray-400 uppercase tracking-wider">
-                Light Theme
-              </Label>
-              <Select
-                value={lightTheme}
-                onValueChange={(value) => handleThemeChange(value, false)}
-              >
-                <SelectTrigger id="light-theme">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {ALL_THEMES.map((themeOption) => (
-                    <SelectItem key={themeOption.value} value={themeOption.value}>
-                      {themeOption.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="dark-theme" className="text-sm text-gray-400 uppercase tracking-wider">
-                Dark Theme
-              </Label>
-              <Select
-                value={darkTheme}
-                onValueChange={(value) => handleThemeChange(value, true)}
-              >
-                <SelectTrigger id="dark-theme">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {ALL_THEMES.map((themeOption) => (
-                    <SelectItem key={themeOption.value} value={themeOption.value}>
-                      {themeOption.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+            
+            <MonacoThemeSelector
+              lightTheme={lightTheme}
+              darkTheme={darkTheme}
+              onLightThemeChange={handleLightThemeChange}
+              onDarkThemeChange={handleDarkThemeChange}
+            />
+            
+            <Button
+              onClick={handleResetThemes}
+              variant="outline"
+              className="w-full mt-4"
+            >
+              <RotateCcw className="w-4 h-4 mr-2" />
+              Reset to Defaults
+            </Button>
           </CardContent>
         </Card>
 

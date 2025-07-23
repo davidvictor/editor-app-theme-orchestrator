@@ -110,7 +110,7 @@ export default function AgentNetworkPage() {
 
       {/* Search and Stats */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-        <Card className="lg:col-span-1 bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="lg:col-span-1 bg-card border-border">
           <CardContent className="p-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -118,13 +118,13 @@ export default function AgentNetworkPage() {
                 placeholder="Search agents..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-muted dark:bg-neutral-800 border-border dark:border-neutral-600 text-foreground placeholder-muted-foreground"
+                className="pl-10 bg-muted border-border text-foreground placeholder-muted-foreground"
               />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -136,7 +136,7 @@ export default function AgentNetworkPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -148,7 +148,7 @@ export default function AgentNetworkPage() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+        <Card className="bg-card border-border">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
@@ -162,7 +162,7 @@ export default function AgentNetworkPage() {
       </div>
 
       {/* Agent List */}
-      <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700">
+      <Card className="bg-card border-border">
         <CardHeader>
           <CardTitle className="text-sm font-medium text-muted-foreground tracking-wider">AGENT ROSTER</CardTitle>
         </CardHeader>
@@ -170,7 +170,7 @@ export default function AgentNetworkPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border dark:border-neutral-700">
+                <tr className="border-b border-border">
                   <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">AGENT ID</th>
                   <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">CODENAME</th>
                   <th className="text-left py-3 px-4 text-xs font-medium text-muted-foreground tracking-wider">STATUS</th>
@@ -185,8 +185,8 @@ export default function AgentNetworkPage() {
                 {filteredAgents.map((agent, index) => (
                   <tr
                     key={agent.id}
-                    className={`border-b border-border dark:border-neutral-800 hover:bg-muted dark:hover:bg-neutral-800 transition-colors cursor-pointer ${
-                      index % 2 === 0 ? "bg-card dark:bg-neutral-900" : "bg-card dark:bg-neutral-850"
+                    className={`border-b border-border hover:bg-muted transition-colors cursor-pointer ${
+                      index % 2 === 0 ? "bg-card" : "bg-card"
                     }`}
                     onClick={() => setSelectedAgent(agent)}
                   >
@@ -199,10 +199,10 @@ export default function AgentNetworkPage() {
                             agent.status === "active"
                               ? "bg-status-success"
                               : agent.status === "standby"
-                                ? "bg-status-warning"
-                                : agent.status === "training"
-                                  ? "bg-status-info"
-                                  : "bg-status-error"
+                              ? "bg-status-warning"
+                              : agent.status === "training"
+                              ? "bg-status-info"
+                              : "bg-status-error"
                           }`}
                         ></div>
                         <span className="text-xs text-muted-foreground uppercase tracking-wider">{agent.status}</span>
@@ -227,10 +227,10 @@ export default function AgentNetworkPage() {
                           agent.risk === "critical"
                             ? "bg-status-error/20 text-status-error"
                             : agent.risk === "high"
-                              ? "bg-status-warning/20 text-status-warning"
-                              : agent.risk === "medium"
-                                ? "bg-status-neutral/20 text-status-neutral"
-                                : "bg-status-success/20 text-status-success"
+                            ? "bg-status-warning/20 text-status-warning"
+                            : agent.risk === "medium"
+                            ? "bg-status-neutral/20 text-status-neutral"
+                            : "bg-status-success/20 text-status-success"
                         }`}
                       >
                         {agent.risk}
@@ -252,7 +252,7 @@ export default function AgentNetworkPage() {
       {/* Agent Detail Modal */}
       {selectedAgent && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <Card className="bg-card dark:bg-neutral-900 border-border dark:border-neutral-700 w-full max-w-2xl">
+          <Card className="bg-card border-border w-full max-w-2xl">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
                 <CardTitle className="text-lg font-bold text-foreground tracking-wider">{selectedAgent.name}</CardTitle>
@@ -276,10 +276,10 @@ export default function AgentNetworkPage() {
                         selectedAgent.status === "active"
                           ? "bg-status-success"
                           : selectedAgent.status === "standby"
-                            ? "bg-status-warning"
-                            : selectedAgent.status === "training"
-                              ? "bg-status-info"
-                              : "bg-status-error"
+                          ? "bg-status-warning"
+                          : selectedAgent.status === "training"
+                          ? "bg-status-info"
+                          : "bg-status-error"
                       }`}
                     ></div>
                     <span className="text-sm text-foreground uppercase tracking-wider">{selectedAgent.status}</span>
@@ -300,27 +300,28 @@ export default function AgentNetworkPage() {
                       selectedAgent.risk === "critical"
                         ? "bg-status-error/20 text-status-error"
                         : selectedAgent.risk === "high"
-                          ? "bg-status-warning/20 text-status-warning"
-                          : selectedAgent.risk === "medium"
-                            ? "bg-status-neutral/20 text-status-neutral"
-                            : "bg-status-success/20 text-status-success"
+                        ? "bg-status-warning/20 text-status-warning"
+                        : selectedAgent.risk === "medium"
+                        ? "bg-status-neutral/20 text-status-neutral"
+                        : "bg-status-success/20 text-status-success"
                     }`}
                   >
                     {selectedAgent.risk}
                   </span>
                 </div>
               </div>
+
               <div className="flex gap-2 pt-4">
                 <Button className="bg-primary-500 hover:bg-primary-600 text-white">Assign Mission</Button>
                 <Button
                   variant="outline"
-                  className="border-border dark:border-neutral-700 text-muted-foreground hover:bg-muted dark:hover:bg-neutral-800 hover:text-muted-foreground bg-transparent"
+                  className="border-border text-muted-foreground hover:bg-muted hover:text-muted-foreground bg-transparent"
                 >
                   View History
                 </Button>
                 <Button
                   variant="outline"
-                  className="border-border dark:border-neutral-700 text-muted-foreground hover:bg-muted dark:hover:bg-neutral-800 hover:text-muted-foreground bg-transparent"
+                  className="border-border text-muted-foreground hover:bg-muted hover:text-muted-foreground bg-transparent"
                 >
                   Send Message
                 </Button>

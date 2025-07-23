@@ -1,9 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ChevronRight, Monitor, Settings, Shield, Target, Users, Bell, RefreshCw, Code2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { useMonacoTheme } from "@/hooks/useMonacoTheme"
+import { useTheme } from "next-themes"
+import { themeApplication } from "@/lib/theme-application"
 import CommandCenterPage from "./command-center/page"
 import AgentNetworkPage from "./agent-network/page"
 import OperationsPage from "./operations/page"
@@ -14,12 +17,29 @@ import HackerPortalPage from "./hacker-portal/page"
 export default function TacticalDashboard() {
   const [activeSection, setActiveSection] = useState("hacker-portal")
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const { theme } = useTheme()
+  
+  // Initialize Monaco theme management
+  const monacoTheme = useMonacoTheme()
+  
+  // Apply saved theme colors on mount and theme change
+  useEffect(() => {
+    if (!theme) return
+    
+    // Reset the last applied theme when the mode changes
+    // This ensures we reapply colors even if the theme name is the same
+    themeApplication.resetLastApplied()
+    
+    // Apply saved colors if available
+    // The function will only apply colors if they exist in localStorage
+    themeApplication.applySavedThemeColors(monacoTheme.currentTheme)
+  }, [theme, monacoTheme.currentTheme])
 
   return (
     <div className="flex h-screen bg-background text-foreground">
       {/* Sidebar */}
       <div
-        className={`${sidebarCollapsed ? "w-16" : "w-70"} bg-card dark:bg-neutral-900 border-r border-border dark:border-neutral-700 transition-all duration-300 fixed md:relative z-50 md:z-auto h-full md:h-auto ${!sidebarCollapsed ? "md:block" : ""}`}
+        className={`${sidebarCollapsed ? "w-16" : "w-70"} bg-card border-r border-border transition-all duration-300 fixed md:relative z-50 md:z-auto h-full md:h-auto ${!sidebarCollapsed ? "md:block" : ""}`}
       >
         <div className="p-4">
           <div className="flex items-center justify-between mb-8">
@@ -54,7 +74,7 @@ export default function TacticalDashboard() {
                 className={`w-full flex items-center gap-3 p-3 rounded transition-colors ${
                   activeSection === item.id
                     ? "bg-primary-500 text-white"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent dark:hover:bg-neutral-800"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
                 }`}
               >
                 <item.icon className="w-5 h-5 md:w-5 md:h-5 sm:w-6 sm:h-6" />
@@ -64,7 +84,7 @@ export default function TacticalDashboard() {
           </nav>
 
           {!sidebarCollapsed && (
-            <div className="mt-8 p-4 bg-muted dark:bg-neutral-800 border border-border dark:border-neutral-700 rounded">
+            <div className="mt-8 p-4 bg-muted border border-border rounded">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
                 <span className="text-xs text-foreground">SYSTEM ONLINE</span>
@@ -87,7 +107,7 @@ export default function TacticalDashboard() {
       {/* Main Content */}
       <div className={`flex-1 flex flex-col ${!sidebarCollapsed ? "md:ml-0" : ""}`}>
         {/* Top Toolbar */}
-        <div className="h-16 bg-card dark:bg-neutral-800 border-b border-border dark:border-neutral-700 flex items-center justify-between px-6">
+        <div className="h-16 bg-card border-b border-border flex items-center justify-between px-6">
           <div className="flex items-center gap-4">
             <div className="text-sm text-muted-foreground">
               TACTICAL COMMAND / <span className="text-primary-500">OVERVIEW</span>
@@ -111,7 +131,7 @@ export default function TacticalDashboard() {
           {activeSection === "operations" && <OperationsPage />}
           {activeSection === "intelligence" && <IntelligencePage />}
           {activeSection === "systems" && <SystemsPage />}
-          {activeSection === "hacker-portal" && <HackerPortalPage />}
+          {activeSection === "hacker-portal" && <HackerPortalPage monacoTheme={monacoTheme} />}
         </div>
       </div>
     </div>
