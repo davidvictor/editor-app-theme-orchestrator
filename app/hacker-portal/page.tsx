@@ -20,6 +20,7 @@ import {
 import { clearOldThemeColorCaches } from '@/lib/theme-sync';
 import { themeApplication } from '@/lib/theme-application';
 import { MonacoThemeSelector } from '@/components/monaco-theme-selector';
+import { isLightTheme, isDarkTheme } from '@/lib/theme-brightness-registry';
 import '@/lib/reset-themes'; // Make resetMonacoThemes available globally
 
 // Templates are now imported from lib/hacker-portal-config
@@ -157,10 +158,16 @@ export default function HackerPortalPage({ monacoTheme }: HackerPortalPageProps)
         safeSetItem(STORAGE_KEYS.LIGHT_THEME, newTheme);
       }
 
+      // If we're in dark mode and the user selects a light theme, 
+      // automatically switch to light mode
+      if (theme === 'dark' && isLightTheme(newTheme)) {
+        setTheme('light');
+      }
+
       // Reset the last applied theme to force re-application
       themeApplication.resetLastApplied();
     },
-    [monacoTheme]
+    [monacoTheme, theme, setTheme]
   );
 
   const handleDarkThemeChange = useCallback(
@@ -172,10 +179,16 @@ export default function HackerPortalPage({ monacoTheme }: HackerPortalPageProps)
         safeSetItem(STORAGE_KEYS.DARK_THEME, newTheme);
       }
 
+      // If we're in light mode and the user selects a dark theme,
+      // automatically switch to dark mode
+      if (theme === 'light' && isDarkTheme(newTheme)) {
+        setTheme('dark');
+      }
+
       // Reset the last applied theme to force re-application
       themeApplication.resetLastApplied();
     },
-    [monacoTheme]
+    [monacoTheme, theme, setTheme]
   );
 
   // Handle editor mount
