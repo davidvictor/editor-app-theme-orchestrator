@@ -277,7 +277,7 @@ export default function HackerPortalPage({ monacoTheme }: HackerPortalPageProps)
   }
 
   return (
-    <div className="h-screen p-6 flex flex-col">
+    <div className="page-height p-6 flex flex-col">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0">
         {/* Main Editor Card */}
         <Card className="lg:col-span-8 h-full">

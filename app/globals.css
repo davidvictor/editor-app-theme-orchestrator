@@ -157,3 +157,7 @@
     transition: none !important;
   }
 }
+
+.page-height {
+  height: calc(100vh - 4rem) !important
+}
